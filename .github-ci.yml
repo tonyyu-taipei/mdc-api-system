@@ -1,0 +1,7 @@
+stages:
+    - deploy
+
+deploy:
+    stage: deploy
+    script:
+        - sshpass -p $SSH_PWD ssh root@$REMOTE_ADDR "./deploy"
