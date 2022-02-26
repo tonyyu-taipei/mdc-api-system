@@ -9,8 +9,6 @@ module.exports = {
 
   inputs: {
 
-    access: { type: 'number', required: true },  // 存取權限
-
   },
 
   
