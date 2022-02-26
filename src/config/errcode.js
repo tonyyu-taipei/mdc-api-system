@@ -1,4 +1,5 @@
 module.exports.errcode = {
+// errorcode
     code: {
       //- 100: 帳號相關
         100: {
