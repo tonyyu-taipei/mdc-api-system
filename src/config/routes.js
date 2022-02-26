@@ -9,6 +9,7 @@
  */
 
 module.exports.routes = {
+// 路由器相關
   // API入口登入頁面
     '*': 'main/index',
 
