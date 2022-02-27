@@ -30,8 +30,8 @@ module.exports.security = {
 
   cors: {
     allRoutes: true,
-    allowOrigins: '*',
-    allowCredentials: 'content-type,authorization',
+    allowOrigins: ['http://rental.mdcstudio.tw:8080','https://rental.mdcstudio.tw','http://localhost','http://localhost:8080'],
+    allowCredentials: true,
   },
 
 
