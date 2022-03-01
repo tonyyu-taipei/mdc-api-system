@@ -48,9 +48,8 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-    // adapter: 'sails-mongo',
-    // url: 'mongodb://user:password@host:port/database',
-
+    adapter: 'sails-postgresql',
+    url: 'postgresql://nodetest:eLry(%H4_<N;jm3Z@34.80.6.111:5432/mdc_rental',
   },
 
 
