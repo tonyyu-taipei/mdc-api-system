@@ -9,7 +9,7 @@ module.exports = {
 
   attributes: {
 
-    brand: {type: "string", required: true }, // 品牌名稱
+    brand: {type: "string", required: true , columnType:'text'}, // 品牌名稱
     
   },
 
