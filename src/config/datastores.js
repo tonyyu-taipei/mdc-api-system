@@ -12,7 +12,7 @@
  * For more information on configuring datastores, check out:
  * https://sailsjs.com/config/datastores
  */
-
+ 
 module.exports.datastores = {
 
 
@@ -49,7 +49,7 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
     adapter: 'sails-postgresql',
-    url: 'postgresql://nodetest:eLry(%H4_<N;jm3Z@34.80.6.111:5432/mdc_rental',
+    url: `postgresql://${process.env.POSTGRESQL_USR}:${process.env.POSTGRESQL_PASS}@34.80.6.111:5432/mdc_rental`,
   },
 
 
