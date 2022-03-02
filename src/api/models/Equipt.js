@@ -15,12 +15,12 @@ module.exports = {
     photo: { type: 'number', required: true , columnType:'int2' },  // 器材圖片
     description: { type: 'string', required: true , columnType:'text' },  // 器材介紹
     price	: { type: 'number', required: true , columnType:'int2' },  // 日租價
-    monthlyDIscount	: { type: 'string', required: true , columnType:'text' },  // 長租優惠比率
-    mount	: { type: 'string', required: true , columnType:'text' },  // 相機/鏡頭接環規格	
+    monthlyDiscount	: { type: 'string', required: false , columnType:'text' },  // 長租優惠比率
+    mount	: { type: 'string', required: false , columnType:'text' },  // 相機/鏡頭接環規格	
     available	: { type: 'number', required: true , columnType:'int2' },  // 相機/鏡頭接環規格	
     brand	: { type: 'number', required: true , columnType:'int2' },  // 相機/鏡頭接環規格	
-    contains	: { type: 'string', required: true , columnType:'text' },  // 相機/鏡頭接環規格	
-    rentedFrom: { type: 'string', required: true , columnType:'text' },  // 從何時租到何時，各個日期都是JS 的new Date()
+    contains	: { type: 'string', required: false , columnType:'text' },  // 相機/鏡頭接環規格	
+    rentedFrom: { type: 'string', required: false , columnType:'text' },  // 從何時租到何時，各個日期都是JS 的new Date()
   },
 
 };
