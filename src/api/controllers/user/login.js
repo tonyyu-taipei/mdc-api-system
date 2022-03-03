@@ -45,7 +45,7 @@ module.exports = {
       method: 'POST',
       url:'https://www.google.com/recaptcha/api/siteverify',
       data: qs.stringify({
-        secret: "6LdW0DkeAAAAANI4X5TQ9V1m-QkGTt83nANDOcda",
+        secret: process.env.recaptcha,
         response: inputs.recaptcha
       })
     }).then(res=>res)
