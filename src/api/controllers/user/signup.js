@@ -34,7 +34,7 @@ module.exports = {
       user: inputs.user
     });
     if (_uf) {
-      return exits.err(100);
+      return exits.err(100); //已存在，回傳
     }
 
     // 建立一筆使用者資料
