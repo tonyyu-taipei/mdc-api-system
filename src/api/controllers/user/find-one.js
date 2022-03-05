@@ -25,7 +25,8 @@ module.exports = {
 
 
   fn: async function (inputs,exits) {
-
+    
+    //  從 User 資料庫裡面抓資料出來，從資料庫裡尋找不是登入後的   
     const _uf = await User.findOne({
       id: inputs.id
     });
