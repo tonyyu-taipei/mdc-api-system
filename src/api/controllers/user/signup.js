@@ -28,14 +28,6 @@ module.exports = {
 
 
   fn: async function (inputs,exits) {
-      
-    // 檢查使用者是否已存在
-    const _uf = await User.findOne({
-      user: inputs.user
-    });
-    if (_uf) {
-      return exits.err(100); //已存在，回傳
-    }
 
     // 建立一筆使用者資料
     const data = {
