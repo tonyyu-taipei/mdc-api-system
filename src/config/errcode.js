@@ -1,9 +1,8 @@
 module.exports.errcode = {
-// errorcode
     code: {
       //- 100: 帳號相關
         100: {
-          msg: '登入失敗：已有相同的使用者',
+          msg: '註冊失敗：已有相同的使用者',
           status: 400
         },
         101: {
@@ -25,6 +24,10 @@ module.exports.errcode = {
         105: {
           msg: "登入失敗：圖形認證錯誤",
           status:400
+        },
+        106: {
+          msg: '註冊失敗：註冊格式不對',
+          status: 400
         },
       //- 200: 器材品牌相關
         201: {
