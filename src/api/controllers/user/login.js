@@ -1,19 +1,19 @@
-const axios = require('axios');
-const qs = require('qs');
+// const axios = require('axios');
+// const qs = require('qs');
+
 module.exports = {
 
 
   friendlyName: 'Login',
 
 
-  description: '',
+  description: 'Login user.',
 
 
   inputs: {
-
-    user: {type: 'string' , required: true},
-    password: {type: 'string', required:true},
-    recaptcha : {type:'string' , required:true}
+    
+    user: {type: "string", required: true, isNotEmptyString: true }, // email
+    password: {type: "string", required: true, isNotEmptyString: true} , // 密碼
 
   },
 
@@ -29,31 +29,47 @@ module.exports = {
 
 
   fn: async function (inputs,exits) {
-
-    const _uf = await User.findOne({
-      user: inputs.user,
+    // 尋找使用者資料
+    const _u = await User.findOne({
+      // user: exits.user,
+      // password: exits.password
+      where: {user: inputs.user},
+      select: ['user', 'password']
     }).decrypt();
-    if (!_uf) {
-      //找不到該筆使用者
+    
+    if (!_u) {
       return exits.err(103);
     }
-  if(_uf.password != inputs.password){
-    return exits.eff(102);
-  }
-    //recaptcha 認證
-    const _captcha = await axios({
-      method: 'POST',
-      url:'https://www.google.com/recaptcha/api/siteverify',
-      data: qs.stringify({
-        secret: process.env.recaptcha,
-        response: inputs.recaptcha
-      })
-    }).then(res=>res)
-    if(_captcha.data.success == true)
-    return exits.success(_uf);
 
-    else
-    return exits.err(105)
+    // 檢查密碼是否正確
+    if (_u.password !== inputs.password) {
+      return exits.err(102);
+    }
+
+    // 如果正確後生產Token
+    await User_session.destroy({});
+    const _session = await User_session.create({}).fetch();
+
+    // All done.
+    return exits.success({
+      token: _session.token, 
+      expiredAt: _session.expiredAt
+    });
+
+    // Recaptcha 認證
+    // const _captcha = await axios({
+    //   method: 'POST',
+    //   url:'https://www.google.com/recaptcha/api/siteverify',
+    //   data: qs.stringify({
+    //     secret: process.env.recaptcha,
+    //     response: inputs.recaptcha
+    // })
+    //   }).then(res=>res)
+    //   if(_captcha.data.success == true)
+    //   return exits.success(_u);
+
+    //   else
+    //   return exits.err(105)
 
 
   }
