@@ -98,6 +98,10 @@ module.exports.errcode = {
           status: 400
         },
         504: {
+          msg: '刪除失敗：找不到此筆訂單',
+          status: 400
+        },
+        505: {
           msg: '用戶信箱尚未被認證，不接收訂單',
           status: 400
         },
