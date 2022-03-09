@@ -46,6 +46,17 @@ module.exports = {
       return exits.err(102);
     }
 
+    // Recaptcha 認證
+    const _captcha = await axios({
+      method: 'POST',
+      url:'https://www.google.com/recaptcha/api/siteverify',
+      data: qs.stringify({
+        secret: process.env.recaptcha,
+        response: inputs.recaptcha
+    })
+      }).then(res=>res)
+      if(!_captcha.data.success)
+      return exits.err(105)
     // 如果正確後生產Token
     await User_session.destroy({});
     const _session = await User_session.create({}).fetch();
@@ -56,20 +67,7 @@ module.exports = {
       expiredAt: _session.expiredAt
     });
 
-    // Recaptcha 認證
-    // const _captcha = await axios({
-    //   method: 'POST',
-    //   url:'https://www.google.com/recaptcha/api/siteverify',
-    //   data: qs.stringify({
-    //     secret: process.env.recaptcha,
-    //     response: inputs.recaptcha
-    // })
-    //   }).then(res=>res)
-    //   if(_captcha.data.success == true)
-    //   return exits.success(_u);
 
-    //   else
-    //   return exits.err(105)
 
 
   }
