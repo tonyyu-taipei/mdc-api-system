@@ -1,0 +1,49 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
+   <head>
+      <title></title>
+      <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+      <meta name="x-apple-disable-message-reformatting" />
+      <!--[if !mso]><!-->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <!--<![endif]--><!--[if gte mso 9]>
+      <xml>
+         <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+         </o:OfficeDocumentSettings>
+      </xml>
+      <![endif]-->
+   </head>
+   <body>
+       <table align="center" border="0" cellspacing="0" style="margin-left:auto; margin-right:auto"" >
+        <thead>
+           <tr>
+               <td width="100%" bgcolor="#55BABB" style="width:100vw;height:100px;margin-left: auto;margin-right:auto">
+                 <img src="https://mdcstudio.tw/img/mdc_mail.png" width=100px style="display:inline;float:left">                
+                 
+                    <h1 style="font-family:STYuanti-TC-Regular, sans-serif;color:#003835;display:inline-block;vertical-align: middle;margin-top:30px;margin-left:40px"> {{ topic }}</h1>
+
+             </td>
+             
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center" border="0" cellspacing="0" style="margin-left:auto; margin-right:auto;width:100vw" width="100%">
+                <p style="text-align:left;margin-left:20px;font-family:sans-serif;line-height: 1.6em;color:#303030">{{ content }}</p>
+                
+            </td>
+        </tr>
+        <tr>
+            <td align="center" border="0" cellspacing="0" style="margin-left:auto; margin-right:auto;width:100vw" width="100%">
+                <p style="text-align:center;margin-left:20px;font-family:sans-serif;line-height: 1.6em;color:lightgrey">Copyright © 2022 MDC STUDIO All rights reserved.</p>
+                
+            </td>
+        </tr>
+    </tbody>
+    </table>
+   </body>
+</html>

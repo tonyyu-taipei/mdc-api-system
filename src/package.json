@@ -12,6 +12,7 @@
     "dotenv": "^16.0.0",
     "jsonwebtoken": "^8.5.1",
     "node-uuid": "^1.4.8",
+    "nodemailer": "^6.7.2",
     "pm2": "^5.1.2",
     "sails": "^1.2.4",
     "sails-hook-grunt": "^4.0.0",
