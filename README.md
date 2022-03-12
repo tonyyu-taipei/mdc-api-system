@@ -4,7 +4,7 @@ mdc-equipt-api
 一個專為MDC器材租借系統而生的後端API。
 使用Sails.js製作，如要開始使用，請進入src中，
 ```console
-node app.js --port 1336
+$ node app.js --port 1336
 ```
 預設將會是開發模式，資料庫模式為alter。
 
