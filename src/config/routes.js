@@ -15,6 +15,7 @@ module.exports.routes = {
 
   // 會員系統
     'POST /api/user/signup':'user/signup',
+    'GET /api/user/auth/:auth':'user/auth',
     'POST /api/user/login':'user/login',
     'POST /api/user/logout':'user/logout',
     'POST /api/user/info':'user/reset-pwd',
