@@ -14,7 +14,7 @@ module.exports = {
     
     user: {type: "string", required: true, isNotEmptyString: true }, // email
     password: {type: "string", required: true, isNotEmptyString: true} , // 密碼
-
+    recaptcha: {type: "string", required: true, isNotEmptyString: true}
   },
 
 
