@@ -1,5 +1,5 @@
 const mail = sails.helpers.mailer;
-const random = (Math.random() + 1).toString(36).substring(7); 
+const random = (Math.random() + 1).toString(36).substring(2); 
 module.exports = {
 
 
@@ -38,6 +38,7 @@ module.exports = {
     })
     if(_find)
     return exits.err(100)
+
     const data = {
       user: inputs.user,
       password: inputs.password,
@@ -54,7 +55,13 @@ module.exports = {
 
     await mail(inputs.name, inputs.user, random, 0)
     //TODO: 確認信連結確認API
-    return exits.success(_create);
+    return exits.success({
+      id: _create.id,
+      user: _create.user,
+      phone: _create.phone,
+      name: _create.name,
+
+    });
 
   }
 

@@ -88,10 +88,10 @@ module.exports = {
                 topic = `帳號確認信`;
 
 
-                content = `${inputs.name}您好！<br>歡迎您加入MDC STUDIO的會員！<br><a href="https://mdcstudio.tw/api/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來開通您的帳號以享有所有服務<br><a href="https://mdcstudio.tw/api/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://mdcstudio.tw/api/auth/${inputs.auth}</a><br><br>MDC STUDIO再次感謝您的加入，若有任何問題，歡迎聯絡我們，謝謝！`;
+                content = `${inputs.name}您好！<br>歡迎您加入MDC STUDIO的會員！<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來開通您的帳號以享有所有服務<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://api.mdcstudio.tw/api/user/auth/${inputs.auth}</a><br><br>MDC STUDIO再次感謝您的加入，若有任何問題，歡迎聯絡我們，謝謝！`;
 
 
-                contentTxt = `${inputs.name}您好！歡迎您加入MDC STUDIO的會員！請前往連結來開通您的帳號以享有所有服務：https://mdcstudio.tw/api/auth/${inputs.auth} MDC STUDIO再次感謝您的加入，若有任何問題，歡迎聯絡我們，謝謝！`;
+                contentTxt = `${inputs.name}您好！歡迎您加入MDC STUDIO的會員！請前往連結來開通您的帳號以享有所有服務：https://api.mdcstudio.tw/api/user/auth/${inputs.auth} MDC STUDIO再次感謝您的加入，若有任何問題，歡迎聯絡我們，謝謝！`;
             break;
 
             default:
