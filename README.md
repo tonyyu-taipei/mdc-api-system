@@ -13,6 +13,9 @@ $ node app.js --port 1336
 ```
 POSTGRESQL_USR= 資料庫名稱
 POSTGRESQL_PASS= 資料庫密碼
+POSTGRESQL_HOST= 資料庫位置
+
+
 recaptcha= Google Recaptcha API Key
 
 MAILFROM=郵件發出者 如：'MDC租借系統<do-not-reply@autosend.mdcstudio.tw>'
