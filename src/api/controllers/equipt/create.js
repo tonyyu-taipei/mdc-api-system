@@ -39,7 +39,7 @@ module.exports = {
 
 
   fn: async function (inputs,exits) {
-
+    
     // 新增資料
     const _create = await Equipt.create({
       name: inputs.name,
