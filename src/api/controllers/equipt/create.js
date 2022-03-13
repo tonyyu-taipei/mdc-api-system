@@ -15,12 +15,16 @@ module.exports = {
     photo: { type: 'number', required: true },  // 器材圖片
     description: { type: 'string', required: true },  // 器材介紹
     price	: { type: 'number', required: true },  // 日租價
-    monthlyDiscount	: { type: 'string', required: false },  // 長租優惠比率
-    mount	: { type: 'string', required: false },  // 相機/鏡頭接環規格	
-    available	: { type: 'number', required: true },  // 維護狀況
     brand	: { type: 'number', required: true },  // 器材品牌名稱
+    available	: { type: 'number', required: true },  // 維護狀況
+
+
+
     contains	: { type: 'string', required: false },  // 包含器材ID
     rentedFrom: { type: 'string', required: false },  // 從何時租到何時，各個日期都是JS 的new Date()，訂單建立時才會加入，新增器材時先忽略
+    monthlyDiscount	: { type: 'string', required: false },  // 長租優惠比率
+
+
   },
 
   
@@ -50,7 +54,7 @@ module.exports = {
       available: inputs.available,
       brand: inputs.brand,
       contains: inputs.contains,
-      rentedFrom: null
+      // rentedFrom: null
     });
       
     // All done.
