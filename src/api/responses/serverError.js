@@ -2,7 +2,6 @@
  * Module dependencies
  */
 
-var _ = require('@sailshq/lodash');
 
 
 
@@ -19,16 +18,13 @@ var _ = require('@sailshq/lodash');
  * error is encountered, Sails will call `res.serverError()`
  * automatically.
  */
-const e = sails.config.errcode.code;
 
 module.exports = function serverError(data) {
 
   // Get access to `req` and `res`
-  var req = this.req;
   var res = this.res;
 
   // Get access to `sails`
-  var sails = req._sails;
 
   // Define the status code to send in the response.
 

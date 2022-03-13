@@ -7,8 +7,7 @@ module.exports = {
   description: 'Create order.',
 
 
-  inputs: {				
-    		
+  inputs: {						
     name: { type: 'string', required: true, columnType:'varchar(10)' },  // 取件人名稱	
     useUD: { type: 'number', required: true , columnType:'int2' },  // 0- true 1- false
     notes: { type: 'number', required: true , columnType:'int2' },  // 備註		

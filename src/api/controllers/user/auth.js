@@ -25,7 +25,7 @@ module.exports={
             auth: inputs.auth
         })
         if(_findAuth){
-            let _auth = await User.update({
+            await User.update({
                 where: {auth : inputs.auth}
             }).set({
                 auth: '',
