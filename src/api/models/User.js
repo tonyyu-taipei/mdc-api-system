@@ -8,7 +8,7 @@
 module.exports = {
 
   attributes: {
-    user: {type: "string", required: true , columnType:'text'}, // email
+    user: {type: "string", required: true , columnType:'text',unique:true}, // email
     password: {type: "string", required: true, encrypt: true } , // 密碼
     phone: {type: "string", required: true , columnType:'text' }, // 電話
     name: {type: "string", required: true, columnType:'varchar(10)' }, // 名字
