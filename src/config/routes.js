@@ -60,6 +60,8 @@ module.exports.routes = {
     'PUT /api/cat/:id': 'cat/update',
     'DELETE /api/cat/:id':'cat/destroy',
 
-  // 圖庫 
+  // 使用者傳送日期給伺服器
+    'POST /api/equipt/date/range':'equipt/date-create',
+    'GET /api/equipt/date/range':'equipt/date-read'
 
 };
