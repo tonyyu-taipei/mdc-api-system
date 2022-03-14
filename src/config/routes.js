@@ -11,7 +11,7 @@
 module.exports.routes = {
 // 路由器相關
   // API入口登入頁面
-    '*': 'main/index',
+    '/': 'main/index',
 
   // 會員系統
     'POST /api/user/signup':'user/signup',
@@ -59,4 +59,7 @@ module.exports.routes = {
     'GET /api/cat/:id':'cat/find-one',
     'PUT /api/cat/:id': 'cat/update',
     'DELETE /api/cat/:id':'cat/destroy',
+
+  // 圖庫 
+
 };
