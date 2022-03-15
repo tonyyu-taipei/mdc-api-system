@@ -54,7 +54,7 @@ module.exports = function ok(data, noLongerSupported) {
     }
   }
   return res.json({
-    status: true,
+    status: "success",
     data:data,
   });
 
