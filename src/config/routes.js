@@ -40,11 +40,9 @@ module.exports.routes = {
     'DELETE /api/equipt/:id':'equipt/destroy',
     
   // 購物車系統
-    'POST /api/equipt/cart':'equipt/create',
-    'GET /api/equipt/cart': 'equipt/find',
-    'GET /api/equipt/cart/:id':'equipt/find-one',
-    'PUT /api/equipt/cart/:id': 'equipt/update',
-    'DELETE /api/equipt/cart/:id':'equipt/destroy',
+    'GET /api/equipt/cart':'cart/find',
+    'POST /api/equipt/cart':'cart/create',
+    'DELETE /api/equipt/cart/:id':'cart/destroy',
 
   // 器材品牌名稱 Done
     'POST /api/brand':'brand/create',
