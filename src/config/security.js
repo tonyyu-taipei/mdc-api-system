@@ -43,7 +43,9 @@ module.exports.security = {
       'https://rental.mdcstudio.tw:3000',
       'https://rental.mdcstudio.tw:8080',
       'https://rental.mdcstudio.tw',
-      'http://192.168.68.73:8080'
+      'http://home.tonyyu.taipei:3000',
+      'http://192.168.68.73:8080',
+      'https://stream.mdcstudio.tw'
   
   
   ],
