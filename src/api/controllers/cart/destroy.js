@@ -25,17 +25,20 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
-    // 資料刪除
-    const _cd = await Cart.findOne({id: inputs.id});
-    if(!_cd){
-      return exits.err(504);
-    } 
+    let requestedId = inputs.id;
     
-    await Cart.update({id: inputs.id}).set({
-      active: false
-    });
+    let requestArr = this.req.session.cart;
 
-    return exits.success({});
+    let index = requestArr.indexOf(requestedId);
+
+    if(index == -1){
+        exits.err(700)
+    }else{
+        this.req.session.cart.splice(index,1)
+        exits.success(this.req.session.cart);
+
+    }
+
 
   }
 

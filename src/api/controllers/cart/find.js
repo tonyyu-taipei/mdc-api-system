@@ -1,37 +1,36 @@
 module.exports = {
 
 
-  friendlyName: 'Find',
-
-
-  description: 'Find cart.',
-
-
-  inputs: {
-
-  },
-
-
-  exits: {
-    success: {
-      responseType: 'ok'
+    friendlyName: 'Find',
+  
+  
+    description: 'Find cart.',
+  
+  
+    inputs: {
+  
+  
     },
-    err: {
-      responseType: 'err'
-    }
-  },
-
-
-  fn: async function (inputs, exits) {
-
-    // 取得所有訂單資料
-    const data = await Cart.find({});
+  
     
+    exits: {
+      success: {
+        responseType: 'ok'
+      },
+      err: {
+        responseType: 'err'
+      }
+    },
+  
+  
+    fn: async function (inputs,exits) {
+  
 
-    // All done.
-    return exits.success({data: data});
+        return exits.success(this.req.session.cart);
 
-  }
-
-
-};
+  
+    }
+  
+  
+  };
+  
