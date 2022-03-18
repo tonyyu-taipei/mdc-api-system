@@ -34,7 +34,7 @@ module.exports = {
       // user: exits.user,
       // password: exits.password
       where: {user: inputs.user},
-      select: ['user', 'password','name']
+      select: ['user', 'password','name','permission']
     }).decrypt();
     
     if (!_u) {
@@ -63,20 +63,23 @@ module.exports = {
           return exits.err(105)
 
     }
-    // 如果正確後生產Token
-    await User_session.destroy({});
-    const _session = await User_session.create({}).fetch();
+
+
 
     this.req.session.user = {
-        user: _u.user,
-        name: _u.name
-    };
+      user: _u.user,
+      name: _u.name,
+     };
+
+    // 檢查是否是管理員
+    if(_u.permission == 1){
+      this.req.session.user.admin = true;
+      this.req.session.user.adminClient = process.env.ADMINCLIENT;
+    }
+
 
     // All done.
-    return exits.success({
-      token: _session.token, 
-      expiredAt: _session.expiredAt
-    });
+    return exits.success(this.req.session.user);
 
 
 
