@@ -12,7 +12,7 @@ module.exports = {
     cat: { type: 'number', required: true , columnType:'int2' },  // 分類索引ID		
     belong: { type: 'number', required: true , columnType:'int2' }, // 創立者ID
     access: { type: 'number', required: true , columnType:'int2' },  // 存取權限
-    photo: { type: 'number', required: true , columnType:'int2' },  // 器材圖片
+    photo: { type: 'string' , columnType:'text', defaultsTo:"notfound.png" },  // 器材圖片
     description: { type: 'string', required: true , columnType:'text' },  // 器材介紹
     price	: { type: 'number', required: true , columnType:'int2' },  // 日租價
     monthlyDiscount	: { type: 'string', required: false , columnType:'text' },  // 長租優惠比率

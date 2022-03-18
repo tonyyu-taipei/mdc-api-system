@@ -6,12 +6,5 @@
  */
 
 module.exports = {
-
-  attributes: {
-
-    cart: { type: 'number',  required: true , columnType:'int2' },
-
-  },
-
 };
 

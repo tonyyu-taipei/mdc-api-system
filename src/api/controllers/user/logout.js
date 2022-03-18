@@ -25,9 +25,7 @@ module.exports = {
   fn: async function (inputs,exits) {
 
     // 在Session裡找尋Token，找到後刪除Token登出
-    await User_session.destroy({
-      user: this.req.session.user
-    });
+  this.req.session.user=undefined
     // All done.
     return exits.success({});
 

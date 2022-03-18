@@ -11,7 +11,7 @@
 module.exports.routes = {
 // 路由器相關
   // API入口登入頁面
-    '*': 'main/index',
+    '/': 'main/index',
 
   // 會員系統
     'POST /api/user/signup':'user/signup',
@@ -40,11 +40,9 @@ module.exports.routes = {
     'DELETE /api/equipt/:id':'equipt/destroy',
     
   // 購物車系統
-    'POST /api/equipt/cart':'equipt/create',
-    'GET /api/equipt/cart': 'equipt/find',
-    'GET /api/equipt/cart/:id':'equipt/find-one',
-    'PUT /api/equipt/cart/:id': 'equipt/update',
-    'DELETE /api/equipt/cart/:id':'equipt/destroy',
+    'GET /api/equipt/cart':'cart/find',
+    'POST /api/equipt/cart':'cart/create',
+    'DELETE /api/equipt/cart/:id':'cart/destroy',
 
   // 器材品牌名稱 Done
     'POST /api/brand':'brand/create',
@@ -59,4 +57,9 @@ module.exports.routes = {
     'GET /api/cat/:id':'cat/find-one',
     'PUT /api/cat/:id': 'cat/update',
     'DELETE /api/cat/:id':'cat/destroy',
+
+  // 使用者傳送日期給伺服器
+    'POST /api/equipt/date/range':'equipt/date-create',
+    'GET /api/equipt/date/range':'equipt/date-read'
+
 };

@@ -13,7 +13,7 @@ async function sendMail(to, subject, txt, html, response){
             }
 
         })
-        let info = await transporter.sendMail({
+        await transporter.sendMail({
             from: process.env.MAILFROM,
             to,
             subject,

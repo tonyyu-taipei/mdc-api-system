@@ -3,7 +3,6 @@ const e = sails.config.errcode.code;
 module.exports = function err(optionalData) {
 
   // Get access to `req` and `res`
-  var req = this.req;
   var res = this.res;
   // Define the status code to send in the response.
   var statusCodeToSet = 400;
@@ -27,7 +26,7 @@ module.exports = function err(optionalData) {
   // Set status code and send response data.
 
   return res.status(resData.status).send({
-    status: false,
+    status: "error",
     statusCH: resData.msg
   });
 

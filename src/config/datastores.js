@@ -49,7 +49,7 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
     adapter: 'sails-postgresql',
-    url: `postgresql://${process.env.POSTGRESQL_USR}:${process.env.POSTGRESQL_PASS}@34.80.6.111:5432/mdc_rental`,
+    url: `postgresql://${process.env.POSTGRESQL_USR}:${process.env.POSTGRESQL_PASS}@${process.env.POSTGRESQL_HOST}/mdc_rental`,
   },
 
 

@@ -1,0 +1,28 @@
+{
+    "env": {
+        "node": true,
+        "commonjs": true,
+        "es6":true
+        },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "rules": {
+        "no-irregular-whitespace": 0
+    },
+    "globals": {
+        "sails":true,
+        "process":true,
+        "User":true,
+        "Cart":true,
+        "Cat":true,
+        "Equipt":true,
+        "Order":true,
+        "User_session":true,
+        "Brand":true
+
+
+
+    }
+}
