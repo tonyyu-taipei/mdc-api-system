@@ -101,7 +101,6 @@ module.exports = {
 
         let html = tempStr.replace(/{{.content.}}/gm, content).replace(/{{.topic.}}/gm, topic)
         
-
         sendMail(inputs.username, topic, contentTxt, html, response=>{
             if(response.code == 200){
                 exits.success(response.msg);

@@ -19,7 +19,7 @@ module.exports = {
         if(!this.req.session.dateRange){
             return exits.err(601)
         }
-
+        
         return exits.success(this.req.session.dateRange)
 
     }
