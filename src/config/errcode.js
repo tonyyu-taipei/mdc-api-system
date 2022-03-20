@@ -112,7 +112,7 @@ module.exports.errcode = {
         },
         601:{
           msg: '伺服器尚未有您的日期資料',
-          status: 404
+          status: 202
         },
 
         //-700: 購物車相關
