@@ -24,6 +24,7 @@ module.exports.routes = {
     'GET /api/user/me':'user/find-me',
     'GET /api/user/:id':'user/find-one',
     'DELETE /api/user/:id':'user/destroy',
+    'PUT /api/user/info':'user/update',
 
   // 訂單系統
     'POST /api/order':'order/create',

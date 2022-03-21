@@ -27,6 +27,7 @@ module.exports.policies = {
 'order/find-one':"check-login",
 'order/update':"check-login",
 'order/destroy':"check-login",
+'user/update':"check-login",
 
 //check if user's admin.
 'user/find-one':"check-admin",
