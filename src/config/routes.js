@@ -24,7 +24,7 @@ module.exports.routes = {
     'GET /api/user/me':'user/find-me',
     'GET /api/user/:id':'user/find-one',
     'DELETE /api/user/:id':'user/destroy',
-    'PUT /api/user/info':'user/update',
+    'PATCH /api/user/info':'user/update',
 
   // 訂單系統
     'POST /api/order':'order/create',
@@ -61,6 +61,21 @@ module.exports.routes = {
 
   // 使用者傳送日期給伺服器
     'POST /api/equipt/date/range':'equipt/date-create',
-    'GET /api/equipt/date/range':'equipt/date-read'
+    'GET /api/equipt/date/range':'equipt/date-read',
+
+    //Swagger 
+    'get /swagger.json': (_, res) => {
+      const swaggerJson = require('../swagger/swagger.json')
+      if (!swaggerJson) {
+        res
+          .status(404)
+          .set('content-type', 'application/json')
+          .send({message: 'Cannot find swagger.json, has the server generated it?'})
+      }
+      return res
+        .status(200)
+        .set('content-type', 'application/json')
+        .send(swaggerJson)
+    }
 
 };
