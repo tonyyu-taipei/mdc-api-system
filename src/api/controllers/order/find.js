@@ -25,7 +25,9 @@ module.exports = {
   fn: async function (inputs,exits) {
 
     // 取得所有訂單資料
-    const data = await Order.find({});
+    const data = await Order.find({
+      userID : this.req.session.user.id
+    });
     
 
     // All done.
