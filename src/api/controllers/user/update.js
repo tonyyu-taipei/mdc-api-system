@@ -1,5 +1,5 @@
 const random = (Math.random() + 1).toString(36).substring(2); 
-const mail = sails.helpers.mail
+const mail = sails.helpers.mailer;
 module.exports={
 
     friendlyName:"UserUpdate",
@@ -86,9 +86,10 @@ module.exports={
         let _chkChangeExists = await User.findOne({
             changeMail: inputs.user
         })
-
-        if(_chkExists || _chkChangeExists)
+        if(_chkChangeExists)
+        if(_chkExists || (_chkChangeExists.id != this.req.session.user.id))
         return exits.err(100);
+
 
         let chgMail = await User.updateOne({
             id: this.req.session.user.id
@@ -97,9 +98,9 @@ module.exports={
             auth:random
         })
         if(chgMail){
-        
         await mail(this.req.session.user.name, inputs.user, random, 1)
 
+        delete this.req.session.user
         return exits.success("請前往信箱收取確認信");
         }
         

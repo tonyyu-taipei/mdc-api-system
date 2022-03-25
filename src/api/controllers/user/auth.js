@@ -22,8 +22,19 @@ module.exports={
 
     fn: async function(inputs, exits){
         let _findAuth = await User.findOne({
-            auth: inputs.auth
+            where:{auth: inputs.auth},
+            select:['changeMail', 'id']
         })
+        if(_findAuth.id && _findAuth.changeMail){
+            await User.update({
+                where: {auth: inputs.auth}
+            }).set({
+                user: _findAuth.changeMail,
+                changeMail: undefined
+            })
+            return exits.success("您的帳戶已經確認，您可以關掉此網頁了，謝謝！")
+
+        }
         if(_findAuth){
             await User.update({
                 where: {auth : inputs.auth}

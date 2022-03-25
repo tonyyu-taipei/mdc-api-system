@@ -30,7 +30,7 @@ module.exports = {
                     select:["price","monthlyDiscount"]
                 })
 
-                if(_ud.monthlyDiscount && inputs.days >= 30){
+                if(_ud.monthlyDiscount===void 0 && inputs.days >= 30){
                     price += _ud.price*_ud.monthlyDiscount;
 
                 }else{

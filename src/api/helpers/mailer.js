@@ -96,7 +96,7 @@ module.exports = {
             case 1: //使用者信箱變更確認信
                 topic = `信箱變更確認`;
 
-                content = `${inputs.name}您好！<br>！<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來變更您的電郵帳號<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://api.mdcstudio.tw/api/user/auth/${inputs.auth}</a><br><br>注意，連結一但點擊就有信箱將會失效，若有任何問題，歡迎聯絡我們，謝謝！`;
+                content = `${inputs.name}您好！<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來變更您的電郵帳號<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://api.mdcstudio.tw/api/user/auth/${inputs.auth}</a><br><br>注意：連結一但點擊，舊有信箱將會失效，若有任何問題，歡迎聯絡我們，謝謝！`;
 
                 break;
 
