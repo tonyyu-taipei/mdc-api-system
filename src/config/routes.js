@@ -28,7 +28,8 @@ module.exports.routes = {
 
   // 訂單系統
     'POST /api/order':'order/create',
-    'GET /api/order/all': 'order/find',
+    'GET /api/order': 'order/find',
+    'GET /api/order/all': 'order/find-all',
     'GET /api/order/:id':'order/find-one',
     'PUT /api/order/:id': 'order/update',
     'DELETE /api/order/:id':'order/destroy',
