@@ -38,7 +38,13 @@ module.exports = {
     if(chkExist.length)
     return exits.err(701);
 
+    let _exists = await Equipt.findOne({
+      id: inputs.id
+    }) 
+
+    if(_exists)
     cartArr.push(inputs.id);
+    else return exits.err(402);
 
     cartObj.items = cartArr
 
