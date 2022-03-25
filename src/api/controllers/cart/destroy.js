@@ -27,14 +27,14 @@ module.exports = {
 
     let requestedId = inputs.id;
     
-    let requestArr = this.req.session.cart;
+    let requestArr = this.req.session.cart.items;
 
     let index = requestArr.indexOf(requestedId);
 
     if(index == -1){
         exits.err(700)
     }else{
-        this.req.session.cart.splice(index,1)
+        this.req.session.cart.items.splice(index,1)
         exits.success(this.req.session.cart);
 
     }

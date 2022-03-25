@@ -34,7 +34,7 @@ module.exports = {
       // user: exits.user,
       // password: exits.password
       where: {user: inputs.user},
-      select: ['user', 'password','name','permission']
+      select: ['user', 'password','name','permission','phone','id']
     }).decrypt();
     
     if (!_u) {
@@ -67,8 +67,10 @@ module.exports = {
 
 
     this.req.session.user = {
+      id:_u.id,
       user: _u.user,
       name: _u.name,
+      phone: _u.phone
      };
 
     // 檢查是否是管理員

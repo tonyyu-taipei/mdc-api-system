@@ -26,7 +26,11 @@ module.exports.errcode = {
           status:400
         },
         106: {
-          msg: '註冊失敗：註冊格式不對',
+          msg: '註冊失敗：註冊格式錯誤',
+          status: 400
+        },
+        107: {
+          msg: "修改失敗：請檢查您的格式和密碼是否正確",
           status: 400
         },
       //- 200: 器材品牌相關
@@ -112,7 +116,7 @@ module.exports.errcode = {
         },
         601:{
           msg: '伺服器尚未有您的日期資料',
-          status: 404
+          status: 202
         },
 
         //-700: 購物車相關

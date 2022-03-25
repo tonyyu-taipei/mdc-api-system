@@ -2,8 +2,6 @@
  * Module dependencies
  */
 
-var util = require('util');
-var _ = require('@sailshq/lodash');
 
 
 
@@ -25,19 +23,17 @@ var _ = require('@sailshq/lodash');
 module.exports = function badRequest(data) {
 
   // Get access to `req` and `res`
-  var req = this.req;
   var res = this.res;
 
   // Get access to `sails`
-  var sails = req._sails;
 
   // Set status code
   res.status(400);
 
 
   return res.json({
-    status: false,
-    statusCH: `請求錯誤：${data.details}`
+    status: 'error',
+    msgCH: `請求錯誤：${data.details}`
   });
 
 };

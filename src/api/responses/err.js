@@ -27,7 +27,7 @@ module.exports = function err(optionalData) {
 
   return res.status(resData.status).send({
     status: "error",
-    statusCH: resData.msg
+    msgCH: resData.msg
   });
 
 

@@ -14,7 +14,8 @@ module.exports = {
     name: {type: "string", required: true, columnType:'varchar(10)' }, // 名字
     permission: {type: "number",  defaultsTo: 0, columnType:'int2' }, //0 -一般使用者  1 -Admin:管理員
     auth: {type: "string", columnType:"text"},
-    verified: {type: "boolean",defaultsTo:false}
+    verified: {type: "boolean",defaultsTo:false},
+    changeMail : {type:"string", columnType:"text"}
   },
 
 };
