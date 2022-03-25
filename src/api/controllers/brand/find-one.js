@@ -4,7 +4,7 @@ module.exports = {
   friendlyName: 'Find one',
 
 
-  description: '',
+  description: 'find the equipment that matches the spec. ID',
 
 
   inputs: {

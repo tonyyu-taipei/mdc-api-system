@@ -4,7 +4,7 @@ module.exports = {
   friendlyName: 'Update',
 
 
-  description: 'Update brand.',
+  description: 'Modify Brand Data',
 
 
   inputs: {
