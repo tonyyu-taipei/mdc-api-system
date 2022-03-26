@@ -1,5 +1,7 @@
 const mail = sails.helpers.mailer;
 const random = (Math.random() + 1).toString(36).substring(2); 
+const recaptcha = sails.helpers.recaptcha
+const emailRule = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 module.exports = {
 
 
@@ -15,6 +17,7 @@ module.exports = {
     password: {type: "string", required: true, encrypt: true} , // 密碼
     phone: {type: "string", required: true }, // 電話
     name: {type: "string", required: true }, // 名字
+    recaptcha: {type:"string",required:true}
 
   },
 
@@ -31,6 +34,10 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
+   if (!emailRule.test(inputs.user)){
+     return exits.err(108);
+   }
+
     // 建立一筆使用者資料
 
     const _find = await User.findOne({
@@ -38,6 +45,18 @@ module.exports = {
     })
     if(_find)
     return exits.err(100)
+
+    if(process.env.NODE_ENV =="production"){
+
+      try{
+        await recaptcha(inputs.recaptcha)
+      }
+      catch(err){
+        return exits.err(105);
+      }
+
+    }
+
 
     const data = {
       user: inputs.user,
