@@ -1,3 +1,4 @@
+/* eslint-disable*/
 module.exports['swagger-generator'] = {
     disabled: false,
     swaggerJsonPath: './swagger/swagger.json',
