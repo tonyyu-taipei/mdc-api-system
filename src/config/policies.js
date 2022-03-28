@@ -19,7 +19,6 @@ module.exports.policies = {
 
 
   //check if user is logged in:
-'user/logout':"check-login",
 'user/reset-pwd':'check-login',
 'user/find':'check-login',
 'order/find':'check-login',
@@ -46,6 +45,7 @@ module.exports.policies = {
 
 
 // any privillages.
+'user/logout':true,
   "main/index":true,
   "user/signup":true,
   "user/auth":true,
