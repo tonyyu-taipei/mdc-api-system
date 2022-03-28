@@ -97,7 +97,14 @@ module.exports = {
                 topic = `信箱變更確認`;
 
                 content = `${inputs.name}您好！<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來變更您的電郵帳號<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://api.mdcstudio.tw/api/user/auth/${inputs.auth}</a><br><br>注意：連結一但點擊，舊有信箱將會失效，若有任何問題，歡迎聯絡我們，謝謝！`;
+                contentTxt = `${inputs.name}您好！請點擊此以開通您的MDC帳號：https://api.mdcstudio.tw/api/user/auth/${inputs.auth} 謝謝。 注意：連結一但點擊，舊有信箱將會失效，若有任何問題，歡迎聯絡我們，謝謝！`;
 
+                break;
+
+            case 2: //訂單成功通知
+                topic = `訂單已接收`;
+                content = `${inputs.name}您好！<br>我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。<br><br>若有任何問題，請洽info@mdcstudio.tw`;
+                contentTxt = `您好！ 我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。 若有任何問題，請洽info@mdcstudio.tw`
                 break;
 
             default:
