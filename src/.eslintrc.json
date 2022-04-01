@@ -20,7 +20,8 @@
         "Equipt":true,
         "Order":true,
         "User_session":true,
-        "Brand":true
+        "Brand":true,
+        "Coupon":true
 
 
 
