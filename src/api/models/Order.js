@@ -9,7 +9,7 @@ module.exports = {
 
   attributes: {			
     name: { type: 'string', required: true, columnType:'varchar(10)' },  // 取件人名稱	
-    notes: { type: 'number' , columnType:'int2' },  // 備註		
+    notes: { type: 'string' , columnType:'text' },  // 備註		
     phone: { type: 'string', required: true, columnType:'text' },  // 聯絡電話	
     status: {type: 'number', columnType:'int2', defaultsTo: 0, description: "order status"},  // 0 -訂單等待管理員確認中 
                                                                     // 1 -管理員已經正在聯絡中 

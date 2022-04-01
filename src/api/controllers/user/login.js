@@ -1,5 +1,4 @@
-const axios = require('axios');
-const qs = require('qs');
+const recaptcha = sails.helpers.recaptcha
 
 module.exports = {
 
@@ -50,17 +49,13 @@ module.exports = {
     // Recaptcha 認證（在開發模式下不進行驗證）
     if(process.env.NODE_ENV =="production"){
 
-        
-        const _captcha = await axios({
-          method: 'POST',
-          url:'https://www.google.com/recaptcha/api/siteverify',
-          data: qs.stringify({
-            secret: process.env.recaptcha,
-            response: inputs.recaptcha
-        })
-          }).then(res=>res)
-          if(!_captcha.data.success)
-          return exits.err(105)
+      try{
+        recaptcha(inputs.recaptcha)
+      }
+      catch(err){
+        sails.log(err);
+        exits.err(105);
+      }
 
     }
 

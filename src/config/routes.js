@@ -64,6 +64,12 @@ module.exports.routes = {
     'POST /api/equipt/date/range':'equipt/date-create',
     'GET /api/equipt/date/range':'equipt/date-read',
 
+  // 優惠碼
+    'GET /api/coupon':"coupon/find-all",
+    'GET /api/coupon/:code':"coupon/find-one",
+    'POST /api/coupon':'coupon/create',
+    "PUT /api/coupon/update":"coupon/update",
+
     //Swagger 
     'get /swagger.json': (_, res) => {
       const swaggerJson = require('../swagger/swagger.json')

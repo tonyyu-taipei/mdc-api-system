@@ -19,7 +19,6 @@ module.exports.policies = {
 
 
   //check if user is logged in:
-'user/logout':"check-login",
 'user/reset-pwd':'check-login',
 'user/find':'check-login',
 'order/find':'check-login',
@@ -27,6 +26,8 @@ module.exports.policies = {
 'order/update':"check-login",
 'order/destroy':"check-login",
 'user/update':"check-login",
+
+
 //check if cart and date-range exists in session
 'order/create':'order-policies',
 
@@ -42,10 +43,13 @@ module.exports.policies = {
 "brand/destroy":"check-admin",
 "brand/create":"check-admin",
 "brand/update":"check-admin",
+"coupon/find-all":"check-admin",
+"coupon/create":'check-admin',
 
 
 
 // any privillages.
+'user/logout':true,
   "main/index":true,
   "user/signup":true,
   "user/auth":true,
@@ -60,6 +64,7 @@ module.exports.policies = {
   "cart/destroy":true,
   "cart/create":true,
   "cart/find":true,
+  'coupon/find-one':true
   
 
   // '*': true,
