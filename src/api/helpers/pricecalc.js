@@ -21,6 +21,7 @@ module.exports = {
     fn: async function(inputs, exits){
         let equiptArr = inputs.equiptId
         let price = 0;
+        let days = inputs.days?inputs.days:1;
 
         await new Promise(resolve=>{
 
@@ -30,7 +31,8 @@ module.exports = {
                     select:["price","monthlyDiscount"]
                 })
 
-                if(_ud.monthlyDiscount===void 0 && inputs.days >= 30){
+
+                if(_ud.monthlyDiscount===void 0 && days >= 30){
                     price += _ud.price*_ud.monthlyDiscount;
 
                 }else{
@@ -41,7 +43,7 @@ module.exports = {
                 resolve()
             })
         })
-        return exits.success(await price*inputs.days)
+        return exits.success(await price*days)
 
         
         
