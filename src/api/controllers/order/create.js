@@ -36,6 +36,16 @@ module.exports = {
 
 
   fn: async function (inputs,exits) {
+    const differenceInDays = require("date-fns/differenceInDays");
+    const pricecalc = sails.helpers.pricecalc
+    let price = 0;
+    let from = this.req.session.dateRange[0];
+    let to = this.req.session.dateRange[1];
+
+    if(this.req.session.coupon !== void 0)
+    price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(from, to)),this.req.session.cart.coupon)  //calculate the price using pricecal helpers. Sending the differences in date to the helpers.
+    else
+    price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(from, to)))  //calculate the price using pricecal helpers. Sending the differences in date to the helpers.
 
     let useUD = inputs.useUD? 1:0;
     sails.log(useUD)
@@ -45,7 +55,7 @@ module.exports = {
       name: inputs.name,
 
       contains:this.req.session.cart.items,
-      price: this.req.session.cart.price,
+      price,
       from: this.req.session.dateRange[0],
       to: this.req.session.dateRange[1],
       userID : this.req.session.user.id

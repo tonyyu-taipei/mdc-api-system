@@ -55,10 +55,20 @@ module.exports = {
     cartObj.items = cartArr
 
     //if the dateRange session exists, also send pricecalc the info to update the price in cart.
-    if(this.req.session.dateRange){
-      cartObj.price = await pricecalc(cartObj.items, Math.abs(differenceInDays(new Date(this.req.session.dateRange[0]),new Date(this.req.session.dateRange[1]) )),this.req.session.cart.coupon)
+    try{
+      if(this.req.session.dateRange){
+        if(this.req.session.cart.coupon !== void 0)
+        cartObj.price = await pricecalc(cartObj.items, Math.abs(differenceInDays(new Date(this.req.session.dateRange[0]),new Date(this.req.session.dateRange[1]) )),this.req.session.cart.coupon)
+
+        else{
+          cartObj.price = await pricecalc(cartObj.items, Math.abs(differenceInDays(new Date(this.req.session.dateRange[0]),new Date(this.req.session.dateRange[1]) )))
+        }
+
+      }
+    }catch(e){
+      sails.log.warn("cart/create Error");
+      sails.log(e)
     }
-    
     this.req.session.cart = cartObj;
     return exits.success(this.req.session.cart);
 

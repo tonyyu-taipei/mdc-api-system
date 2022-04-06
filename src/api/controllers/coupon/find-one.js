@@ -29,6 +29,7 @@ module.exports = {
 
 
   fn: async function (inputs, exits) {
+    sails.log("Coupon Requested")
     let _res = await Coupon.findOne({
       code: inputs.code
     })

@@ -69,6 +69,7 @@ module.exports.routes = {
     'GET /api/coupon/:code':"coupon/find-one",
     'POST /api/coupon':'coupon/create',
     "PUT /api/coupon/update":"coupon/update",
+    'DELETE /api/coupon':"coupon/destroy",
 
     //Swagger 
     'get /swagger.json': (_, res) => {

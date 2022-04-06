@@ -27,8 +27,6 @@ module.exports = {
         const isFuture = require('date-fns/isFuture')
         const isToday = require('date-fns/isToday')
         const startOfDay = require('date-fns/startOfDay')
-        const pricecalc = sails.helpers.pricecalc
-        const differenceInDays = require('date-fns/differenceInDays');
         
         let reqRange = inputs.range;
         if(isToday(new Date(reqRange[0])) || isFuture(new Date(reqRange[0])) && isToday(new Date(reqRange[1])) || isFuture(new Date(reqRange[1]))){
@@ -48,9 +46,7 @@ module.exports = {
                 })
             })
             this.req.session.dateRange = reqRange;
-            if(this.req.session.cart)
-            this.req.session.cart.price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(new Date(this.req.session.dateRange[0]),new Date(this.req.session.dateRange[1]) )),this.req.session.cart.coupon)
-    
+
     
             return exits.success(reqRange);
         }else{
