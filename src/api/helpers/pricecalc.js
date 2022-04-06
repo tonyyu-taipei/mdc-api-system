@@ -59,7 +59,6 @@ module.exports = {
                         price += _ud.price;
                     }
                 }
-                sails.log(index)
                 if(index == arr.length-1)
                 resolve()
             })
