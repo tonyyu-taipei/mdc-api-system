@@ -32,7 +32,7 @@ module.exports={
           let from = startOfDay(new Date(this.req.session.dateRange[0]));  //init the date that the user selected
           let to = startOfDay(new Date(this.req.session.dateRange[1]));   // use start of day to ensure that the difference in days will be correct no matter of the time.
 
-          this.req.session.cart.price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(from, to)))  //calculate the price using pricecal helpers. Sending the differences in date to the helpers.
+          this.req.session.cart.price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(from, to)),this.req.session.cart.coupon)  //calculate the price using pricecal helpers. Sending the differences in date to the helpers.
         }
         try{
           this.req.session.dateRange[0]&& !this.req.session.dateRange[1] //test if dateRange session exists.

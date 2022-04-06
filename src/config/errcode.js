@@ -141,6 +141,10 @@ module.exports.errcode = {
         801:{
           msg:"優惠碼無效",
           status: 400,
+        },
+        802:{
+          msg:"優惠碼正確，但購物車為空，請先新增商品至購物車",
+          status: 400
         }
     }
   };
