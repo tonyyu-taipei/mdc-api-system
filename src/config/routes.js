@@ -30,9 +30,11 @@ module.exports.routes = {
     'POST /api/order':'order/create',
     'GET /api/order': 'order/find',
     'GET /api/order/all': 'order/find-all',
+    'GET /api/order/pending': 'order/find-pending',
     'GET /api/order/:id':'order/find-one',
     'PUT /api/order/:id': 'order/update',
     'DELETE /api/order/:id':'order/destroy',
+    'GET /api/order/find-contact/:id':'order/find-contact',
     
   // 器材系統 Done
     'POST /api/equipt':'equipt/create',
