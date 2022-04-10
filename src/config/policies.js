@@ -33,6 +33,7 @@ module.exports.policies = {
 
 //check if user's admin.
 'order/find-all':"check-admin",
+'order/find-pending':"check-admin",
 'user/find-one':"check-admin",
 'user/destroy':'check-admin',
 "equipt/create":"check-admin",
@@ -45,7 +46,7 @@ module.exports.policies = {
 "brand/update":"check-admin",
 "coupon/find-all":"check-admin",
 "coupon/create":'check-admin',
-
+"order/find-contact":"check-admin",
 
 
 // any privillages.
