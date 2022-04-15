@@ -32,7 +32,7 @@ module.exports = function serverError(data) {
   // Set status code
   res.status(500).send({
     status: false, 
-    statusCH: `伺服器錯誤：${data}`
+    msgCH: `伺服器錯誤：${data}`
   });
 
 };
