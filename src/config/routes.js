@@ -41,6 +41,7 @@ module.exports.routes = {
     'GET /api/equipt': 'equipt/find',
     'GET /api/equipt/:id':'equipt/find-one',
     'PUT /api/equipt/:id': 'equipt/update',
+    'PUT /api/equipt': 'equipt/update-all',
     'DELETE /api/equipt/:id':'equipt/destroy',
     
   // 購物車系統

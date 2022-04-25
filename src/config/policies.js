@@ -39,6 +39,7 @@ module.exports.policies = {
 "equipt/create":"check-admin",
 'equipt/destroy':"check-admin",
 "equipt/update":'check-admin',
+"equipt/update-all":'check-admin',
 "cat/destroy":"check-admin",
 "cat/update":"check-admin",
 "brand/destroy":"check-admin",

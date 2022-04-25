@@ -4,7 +4,7 @@ module.exports = {
   friendlyName: 'Update',
 
 
-  description: 'Update equipt.',
+  description: 'Update equipt. using the specified id provided by the admin.',
 
 
   inputs: {

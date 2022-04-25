@@ -74,8 +74,8 @@ module.exports.errcode = {
       //- 400: 器材相關
         401: {
           msg: '新增失敗：相關格式錯誤',
-          status: 400
-        },
+          status:400
+        } ,
         402: {
           msg: '讀取失敗：找不到此筆器材資料',
           status: 400
