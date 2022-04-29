@@ -1,13 +1,13 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Swagger Json",
-    "description": "This is a generated swagger json for your sails project",
-    "termsOfService": "http://example.com/terms",
+    "title": "MDC API System",
+    "description": "This is a generated swagger json for MDC-API-sails project",
+    "termsOfService": "https://mdcstudio.tw",
     "contact": {
-      "name": "Theophilus Omoregbee",
-      "url": "http://github.com/theo4u",
-      "email": "theo4u@ymail.com"
+      "name": "Tony Yu",
+      "url": "https://tonyyu.taipei",
+      "email": "shinningyu55688@gmail.com"
     },
     "license": {
       "name": "Apache 2.0",
@@ -17,11 +17,11 @@
   },
   "servers": [
     {
-      "url": "http://localhost:1337/"
+      "url": "https://api.mdcstudio.tw"
     }
   ],
   "externalDocs": {
-    "url": "https://theoomoregbee.github.io/"
+    "url": "https://github.com/aaronkao88/mdc-api-system"
   },
   "tags": [
     {
@@ -37,8 +37,16 @@
       "description": "Sails blueprint actions for the **Cat** model"
     },
     {
+      "name": "Coupon",
+      "description": "Sails blueprint actions for the **Coupon** model"
+    },
+    {
       "name": "Equipt",
       "description": "Sails blueprint actions for the **Equipt** model"
+    },
+    {
+      "name": "Image",
+      "description": "Sails blueprint actions for the **Image** model"
     },
     {
       "name": "Order",
@@ -47,6 +55,15 @@
     {
       "name": "User",
       "description": "Sails blueprint actions for the **User** model"
+    },
+    {
+      "name": "Upload Img."
+    },
+    {
+      "name": "Find all files"
+    },
+    {
+      "name": "Destroy"
     },
     {
       "name": "Index"
@@ -158,6 +175,64 @@
           }
         }
       },
+      "coupon": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/coupon-without-required-constraint"
+          },
+          {
+            "required": [
+              "code",
+              "discount"
+            ]
+          }
+        ]
+      },
+      "coupon-without-required-constraint": {
+        "type": "object",
+        "description": "Sails ORM Model **Coupon**",
+        "properties": {
+          "createdAt": {
+            "type": "number",
+            "format": "double"
+          },
+          "updatedAt": {
+            "type": "number",
+            "format": "double"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "uniqueItems": true,
+            "description": "Note Sails special attributes: autoIncrement"
+          },
+          "code": {
+            "type": "string",
+            "description": "The coupon code",
+            "uniqueItems": true
+          },
+          "from": {
+            "type": "string",
+            "description": "Valid from date"
+          },
+          "to": {
+            "type": "string",
+            "description": "Valid to date"
+          },
+          "includes": {
+            "description": "Includes equipt. ID array"
+          },
+          "discount": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "description": "About the coupon"
+          }
+        }
+      },
       "equipt": {
         "type": "object",
         "allOf": [
@@ -224,7 +299,8 @@
             "format": "int64"
           },
           "monthlyDiscount": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "mount": {
             "type": "string"
@@ -245,6 +321,54 @@
           }
         }
       },
+      "image": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/image-without-required-constraint"
+          },
+          {
+            "required": [
+              "title",
+              "file"
+            ]
+          }
+        ]
+      },
+      "image-without-required-constraint": {
+        "type": "object",
+        "description": "Sails ORM Model **Image**",
+        "properties": {
+          "createdAt": {
+            "type": "number",
+            "format": "double"
+          },
+          "updatedAt": {
+            "type": "number",
+            "format": "double"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "uniqueItems": true,
+            "description": "Note Sails special attributes: autoIncrement"
+          },
+          "title": {
+            "type": "string",
+            "description": "Image title, will be used as the Userfriendly name for the image",
+            "uniqueItems": true
+          },
+          "file": {
+            "type": "string",
+            "description": "The filename of the img",
+            "example": "24.jpg"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "order": {
         "type": "object",
         "allOf": [
@@ -254,10 +378,12 @@
           {
             "required": [
               "name",
-              "useUD",
-              "notes",
               "phone",
-              "status"
+              "contains",
+              "from",
+              "to",
+              "userID",
+              "price"
             ]
           }
         ]
@@ -283,20 +409,38 @@
           "name": {
             "type": "string"
           },
-          "useUD": {
-            "type": "integer",
-            "format": "int64"
-          },
           "notes": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           "phone": {
             "type": "string"
           },
           "status": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "default": 0,
+            "description": "order status"
+          },
+          "contains": {
+            "description": "An array contains equipment IDs"
+          },
+          "from": {
+            "type": "string",
+            "description": "rent from date"
+          },
+          "to": {
+            "type": "string",
+            "description": "to date"
+          },
+          "userID": {
+            "type": "number",
+            "format": "double",
+            "description": "the person created the order"
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "description": "the total of the order"
           }
         }
       },
@@ -366,6 +510,18 @@
       }
     },
     "parameters": {
+      "ModelPKParam-coupon": {
+        "in": "path",
+        "name": "_id",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64",
+          "uniqueItems": true,
+          "description": "Note Sails special attributes: autoIncrement"
+        },
+        "description": "The desired **Coupon** record's primary key value"
+      },
       "ModelPKParam-user": {
         "in": "path",
         "name": "_id",
@@ -438,6 +594,18 @@
         },
         "description": "The desired **Cat** record's primary key value"
       },
+      "ModelPKParam-image": {
+        "in": "path",
+        "name": "_id",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64",
+          "uniqueItems": true,
+          "description": "Note Sails special attributes: autoIncrement"
+        },
+        "description": "The desired **Image** record's primary key value"
+      },
       "AttributeFilterParam": {
         "in": "query",
         "name": "_*_",
@@ -501,7 +669,7 @@
           {
             "in": "query",
             "name": "name",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -511,34 +679,23 @@
             "name": "useUD",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "boolean"
             }
           },
           {
             "in": "query",
             "name": "notes",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
-            "name": "phone",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             }
           },
           {
             "in": "query",
-            "name": "status",
-            "required": true,
+            "name": "phone",
+            "required": false,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "string"
             }
           }
         ],
@@ -581,6 +738,84 @@
                 "$ref": "#/components/schemas/order"
               }
             }
+          }
+        }
+      },
+      "get": {
+        "summary": "Find",
+        "description": "Find order.",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-where",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-where"
+        },
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AttributeFilterParam"
+          },
+          {
+            "$ref": "#/components/parameters/WhereQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SkipQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SortQueryParam"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -809,6 +1044,150 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update",
+        "description": "Update all of the same name equipt by giving the equipt name.",
+        "tags": [
+          "Equipt"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cat",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "belong",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "available",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "photo",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "contains",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "rentedFrom",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "monthlyDiscount",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -947,6 +1326,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -1095,6 +1477,282 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/coupon": {
+      "get": {
+        "summary": "Find All Coupon Codes",
+        "description": "A action to find all the coupons (admin only)",
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Coupon(Admin Only)",
+        "description": "Create the coupon",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/create",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/create"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The coupon code"
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid from date (must be Javascript date readable)"
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid to date (must be Javascript date readable)"
+          },
+          {
+            "in": "query",
+            "name": "includes",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "example": [
+                1,
+                2,
+                3
+              ]
+            },
+            "description": "Includes equipt. ID array"
+          },
+          {
+            "in": "query",
+            "name": "discount",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "example": 0.5
+            }
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "About the coupon"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "description": "JSON dictionary representing the Coupon instance to create.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/coupon"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy Coupon",
+        "description": "An action to destroy coupon from user session",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/destroy",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/destroy"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-coupon"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Cannot destroy, **Coupon** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/img": {
+      "post": {
+        "summary": "Upload Img.",
+        "description": "A tool to let admin upload img.",
+        "tags": [
+          "Upload Img."
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "title",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "file",
+            "required": true,
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Find all files",
+        "description": "Find all files.",
+        "tags": [
+          "Find all files"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -1143,6 +1801,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "recaptcha",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1164,6 +1830,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -1227,6 +1896,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -1263,6 +1935,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -1324,6 +1999,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -1399,6 +2077,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -1528,6 +2209,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -1541,50 +2225,10 @@
       "get": {
         "summary": "Find",
         "description": "Find order.",
-        "externalDocs": {
-          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-where",
-          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-where"
-        },
         "tags": [
           "Order"
         ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/AttributeFilterParam"
-          },
-          {
-            "$ref": "#/components/parameters/WhereQueryParam"
-          },
-          {
-            "$ref": "#/components/parameters/LimitQueryParam"
-          },
-          {
-            "$ref": "#/components/parameters/SkipQueryParam"
-          },
-          {
-            "$ref": "#/components/parameters/SortQueryParam"
-          },
-          {
-            "in": "query",
-            "name": "select",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
-            },
-            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
-          },
-          {
-            "in": "query",
-            "name": "omit",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
-            },
-            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Success",
@@ -1604,6 +2248,49 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/order/pending": {
+      "get": {
+        "summary": "Find Peding Order",
+        "description": "Find the order that's in the pending state",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -1682,6 +2369,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -1692,7 +2382,7 @@
       },
       "post": {
         "summary": "Create",
-        "description": "Create cart.",
+        "description": "A tool to add the spec. id to the cart list. ",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/create",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/create"
@@ -1708,7 +2398,8 @@
             "schema": {
               "type": "number",
               "format": "double"
-            }
+            },
+            "description": "The id of the equipment. This has to be a integer."
           }
         ],
         "responses": {
@@ -1789,6 +2480,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -1822,6 +2516,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -1868,6 +2565,69 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/order/find-contact/{_id}": {
+      "get": {
+        "summary": "Find Contact",
+        "description": "A tool to fetch the email address of the user order",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            },
+            "description": "The id of the order"
+          },
+          {
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Route pattern variable `_id`"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -1880,7 +2640,7 @@
     "/api/equipt/cart/{_id}": {
       "delete": {
         "summary": "Destroy",
-        "description": "Destroy cart.",
+        "description": "Splice the cart.",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/destroy",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/destroy"
@@ -1896,7 +2656,8 @@
             "schema": {
               "type": "number",
               "format": "double"
-            }
+            },
+            "description": "the id that you wanna remove from the cart"
           },
           {
             "$ref": "#/components/parameters/ModelPKParam-cart"
@@ -1921,6 +2682,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Cannot destroy, **Cart** record with specified ID **NOT** found"
@@ -1977,6 +2741,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -2028,6 +2795,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Cannot destroy, **User** record with specified ID **NOT** found"
@@ -2084,6 +2854,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -2135,6 +2908,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Cannot destroy, **Order** record with specified ID **NOT** found"
@@ -2191,6 +2967,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -2243,6 +3022,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Equipt** record with specified ID **NOT** found"
           },
@@ -2255,6 +3037,7 @@
     "/api/brand/{_id}": {
       "get": {
         "summary": "Find one",
+        "description": "find the equipment that matches the spec. ID",
         "tags": [
           "Brand"
         ],
@@ -2297,6 +3080,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -2349,6 +3135,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Cannot destroy, **Brand** record with specified ID **NOT** found"
@@ -2405,6 +3194,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -2457,8 +3249,108 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Cat** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/coupon/{code}": {
+      "get": {
+        "summary": "Find one coupon code",
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/img/{title}": {
+      "delete": {
+        "summary": "Destroy",
+        "description": "Destroy Image",
+        "tags": [
+          "Destroy"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "title",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
           },
           "500": {
             "description": "Internal server error"
@@ -2477,6 +3369,9 @@
         "responses": {
           "200": {
             "description": "Success"
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -2497,6 +3392,9 @@
           "200": {
             "description": "Success"
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -2515,6 +3413,9 @@
         "responses": {
           "200": {
             "description": "Success"
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -2535,6 +3436,9 @@
           "200": {
             "description": "Success"
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -2553,6 +3457,9 @@
         "responses": {
           "200": {
             "description": "Success"
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -2631,6 +3538,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -2686,6 +3596,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Response denoting **Brand** record with specified ID **NOT** found"
@@ -2779,7 +3692,7 @@
     "/brand/update/{_id}": {
       "get": {
         "summary": "Update *",
-        "description": "Update brand.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "description": "Modify Brand Data\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/update",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/update"
@@ -2911,6 +3824,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Brand** record with specified ID **NOT** found"
           },
@@ -2988,6 +3904,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -3044,6 +3963,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Response denoting **Cart** record with specified ID **NOT** found"
           },
@@ -3056,7 +3978,7 @@
     "/cart/create": {
       "get": {
         "summary": "Create *",
-        "description": "Create cart.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "description": "A tool to add the spec. id to the cart list. \n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/create",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/create"
@@ -3072,7 +3994,8 @@
             "schema": {
               "type": "number",
               "format": "double"
-            }
+            },
+            "description": "The id of the equipment. This has to be a integer."
           },
           {
             "in": "query",
@@ -3192,7 +4115,7 @@
     "/cart/destroy/{_id}": {
       "get": {
         "summary": "Destroy *",
-        "description": "Destroy cart.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "description": "Splice the cart.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/destroy",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/destroy"
@@ -3208,7 +4131,8 @@
             "schema": {
               "type": "number",
               "format": "double"
-            }
+            },
+            "description": "the id that you wanna remove from the cart"
           },
           {
             "$ref": "#/components/parameters/ModelPKParam-cart"
@@ -3233,6 +4157,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Cannot destroy, **Cart** record with specified ID **NOT** found"
@@ -3311,6 +4238,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -3366,6 +4296,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Response denoting **Cat** record with specified ID **NOT** found"
@@ -3598,11 +4531,434 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Cat** record with specified ID **NOT** found"
           },
           "500": {
             "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/coupon/find": {
+      "get": {
+        "summary": "List Coupon (find where) *",
+        "description": "Find a list of **Coupon** records that match the specified criteria.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-where",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-where"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AttributeFilterParam"
+          },
+          {
+            "$ref": "#/components/parameters/WhereQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SkipQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SortQueryParam"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,code,from,to,includes,discount,description"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,code,from,to,includes,discount,description"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a paged list of **Coupon** records that match the specified criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/coupon"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/coupon/find/{_id}": {
+      "get": {
+        "summary": "Get Coupon (find one) *",
+        "description": "Look up the **Coupon** record with the specified ID.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-one",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-one"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-coupon"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,code,from,to,includes,discount,description"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,code,from,to,includes,discount,description"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a single **Coupon** record as a JSON dictionary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/coupon"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Response denoting **Coupon** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/coupon/create": {
+      "get": {
+        "summary": "Create Coupon(Admin Only) *",
+        "description": "Create the coupon\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/create",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/create"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The coupon code"
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid from date (must be Javascript date readable)"
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid to date (must be Javascript date readable)"
+          },
+          {
+            "in": "query",
+            "name": "includes",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "example": [
+                1,
+                2,
+                3
+              ]
+            },
+            "description": "Includes equipt. ID array"
+          },
+          {
+            "in": "query",
+            "name": "discount",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "example": 0.5
+            }
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "About the coupon"
+          },
+          {
+            "in": "query",
+            "name": "createdAt",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "updatedAt",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "uniqueItems": true,
+              "description": "Note Sails special attributes: autoIncrement"
+            },
+            "description": "Note Sails special attributes: autoIncrement"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/coupon/update/{_id}": {
+      "get": {
+        "summary": "Update Coupon *",
+        "description": "Update the discount of the coupon\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/update",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/update"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-coupon"
+          },
+          {
+            "in": "query",
+            "name": "createdAt",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "updatedAt",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "uniqueItems": true,
+              "description": "Note Sails special attributes: autoIncrement"
+            },
+            "description": "Note Sails special attributes: autoIncrement"
+          },
+          {
+            "in": "query",
+            "name": "code",
+            "schema": {
+              "type": "string",
+              "description": "The coupon code",
+              "uniqueItems": true
+            },
+            "description": "The coupon code"
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "schema": {
+              "type": "string",
+              "description": "Valid from date"
+            },
+            "description": "Valid from date"
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string",
+              "description": "Valid to date"
+            },
+            "description": "Valid to date"
+          },
+          {
+            "in": "query",
+            "name": "includes",
+            "schema": {
+              "description": "Includes equipt. ID array"
+            },
+            "description": "Includes equipt. ID array"
+          },
+          {
+            "in": "query",
+            "name": "discount",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "schema": {
+              "type": "string",
+              "description": "About the coupon"
+            },
+            "description": "About the coupon"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with the newly updated **Coupon** record as a JSON dictionary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/coupon"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Cannot update, **Coupon** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/coupon/destroy/{_id}": {
+      "get": {
+        "summary": "Destroy Coupon *",
+        "description": "An action to destroy coupon from user session\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/destroy",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/destroy"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-coupon"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Cannot destroy, **Coupon** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -3675,6 +5031,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -3730,6 +5089,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Response denoting **Equipt** record with specified ID **NOT** found"
@@ -3924,7 +5286,7 @@
     "/equipt/update/{_id}": {
       "get": {
         "summary": "Update *",
-        "description": "Update equipt.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "description": "Update equipt. using the specified id provided by the admin.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/update",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/update"
@@ -4148,8 +5510,370 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Equipt** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/image/find": {
+      "get": {
+        "summary": "List Image (find where) *",
+        "description": "Find a list of **Image** records that match the specified criteria.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-where",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-where"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AttributeFilterParam"
+          },
+          {
+            "$ref": "#/components/parameters/WhereQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SkipQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SortQueryParam"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,title,file,description"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,title,file,description"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a paged list of **Image** records that match the specified criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/image"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/image/find/{_id}": {
+      "get": {
+        "summary": "Get Image (find one) *",
+        "description": "Look up the **Image** record with the specified ID.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-one",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-one"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-image"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,title,file,description"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,title,file,description"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a single **Image** record as a JSON dictionary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Response denoting **Image** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/image/create": {
+      "get": {
+        "summary": "Create Image *",
+        "description": "Create a new **Image** record.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/create",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/create"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "createdAt",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "updatedAt",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "uniqueItems": true,
+              "description": "Note Sails special attributes: autoIncrement"
+            },
+            "description": "Note Sails special attributes: autoIncrement"
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "schema": {
+              "type": "string",
+              "description": "Image title, will be used as the Userfriendly name for the image",
+              "uniqueItems": true
+            },
+            "description": "Image title, will be used as the Userfriendly name for the image",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "file",
+            "schema": {
+              "type": "string",
+              "description": "The filename of the img",
+              "example": "24.jpg"
+            },
+            "description": "The filename of the img",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a JSON dictionary representing the newly created **Image** instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/image/update/{_id}": {
+      "get": {
+        "summary": "Update Image *",
+        "description": "Update an existing **Image** record.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/update",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/update"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-image"
+          },
+          {
+            "in": "query",
+            "name": "createdAt",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "updatedAt",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "uniqueItems": true,
+              "description": "Note Sails special attributes: autoIncrement"
+            },
+            "description": "Note Sails special attributes: autoIncrement"
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "schema": {
+              "type": "string",
+              "description": "Image title, will be used as the Userfriendly name for the image",
+              "uniqueItems": true
+            },
+            "description": "Image title, will be used as the Userfriendly name for the image"
+          },
+          {
+            "in": "query",
+            "name": "file",
+            "schema": {
+              "type": "string",
+              "description": "The filename of the img",
+              "example": "24.jpg"
+            },
+            "description": "The filename of the img"
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with the newly updated **Image** record as a JSON dictionary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Cannot update, **Image** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/image/destroy/{_id}": {
+      "get": {
+        "summary": "Delete Image (destroy) *",
+        "description": "Delete the **Image** record with the specified ID.\n\n(\\*) Note that this is a [Sails blueprint shortcut route](https://sailsjs.com/documentation/concepts/blueprints/blueprint-routes#?shortcut-blueprint-routes) (recommended for **development-mode only**)",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/destroy",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/destroy"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-image"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a JSON dictionary representing the destroyed **Image** instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Cannot destroy, **Image** record with specified ID **NOT** found"
           },
           "500": {
             "description": "Internal server error"
@@ -4190,7 +5914,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -4200,7 +5924,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }
@@ -4224,6 +5948,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -4255,7 +5982,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -4265,7 +5992,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }
@@ -4280,6 +6007,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Response denoting **Order** record with specified ID **NOT** found"
@@ -4305,7 +6035,7 @@
           {
             "in": "query",
             "name": "name",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -4315,34 +6045,23 @@
             "name": "useUD",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "boolean"
             }
           },
           {
             "in": "query",
             "name": "notes",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
-            "name": "phone",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             }
           },
           {
             "in": "query",
-            "name": "status",
-            "required": true,
+            "name": "phone",
+            "required": false,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "string"
             }
           },
           {
@@ -4371,6 +6090,68 @@
               "description": "Note Sails special attributes: autoIncrement"
             },
             "description": "Note Sails special attributes: autoIncrement"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0,
+              "description": "order status"
+            },
+            "description": "order status"
+          },
+          {
+            "in": "query",
+            "name": "contains",
+            "schema": {
+              "description": "An array contains equipment IDs"
+            },
+            "description": "An array contains equipment IDs",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "schema": {
+              "type": "string",
+              "description": "rent from date"
+            },
+            "description": "rent from date",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string",
+              "description": "to date"
+            },
+            "description": "to date",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "userID",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "description": "the person created the order"
+            },
+            "description": "the person created the order",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "description": "the total of the order"
+            },
+            "description": "the total of the order",
+            "required": true
           }
         ],
         "responses": {
@@ -4489,6 +6270,52 @@
               "description": "Note Sails special attributes: autoIncrement"
             },
             "description": "Note Sails special attributes: autoIncrement"
+          },
+          {
+            "in": "query",
+            "name": "contains",
+            "schema": {
+              "description": "An array contains equipment IDs"
+            },
+            "description": "An array contains equipment IDs"
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "schema": {
+              "type": "string",
+              "description": "rent from date"
+            },
+            "description": "rent from date"
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "type": "string",
+              "description": "to date"
+            },
+            "description": "to date"
+          },
+          {
+            "in": "query",
+            "name": "userID",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "description": "the person created the order"
+            },
+            "description": "the person created the order"
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "description": "the total of the order"
+            },
+            "description": "the total of the order"
           }
         ],
         "responses": {
@@ -4568,6 +6395,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Order** record with specified ID **NOT** found"
           },
@@ -4645,6 +6475,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -4700,6 +6533,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Response denoting **User** record with specified ID **NOT** found"
@@ -5023,6 +6859,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **User** record with specified ID **NOT** found"
           },
@@ -5099,6 +6938,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -5218,6 +7060,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Response denoting **Brand** record with specified ID **NOT** found"
           },
@@ -5228,7 +7073,7 @@
       },
       "patch": {
         "summary": "Update",
-        "description": "Update brand.",
+        "description": "Modify Brand Data",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/update",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/update"
@@ -5353,6 +7198,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Brand** record with specified ID **NOT** found"
           },
@@ -5430,6 +7278,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -5440,7 +7291,7 @@
       },
       "post": {
         "summary": "Create",
-        "description": "Create cart.",
+        "description": "A tool to add the spec. id to the cart list. ",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/create",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/create"
@@ -5456,7 +7307,8 @@
             "schema": {
               "type": "number",
               "format": "double"
-            }
+            },
+            "description": "The id of the equipment. This has to be a integer."
           }
         ],
         "responses": {
@@ -5549,6 +7401,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Response denoting **Cart** record with specified ID **NOT** found"
           },
@@ -5607,7 +7462,7 @@
       },
       "delete": {
         "summary": "Destroy",
-        "description": "Destroy cart.",
+        "description": "Splice the cart.",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/destroy",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/destroy"
@@ -5623,7 +7478,8 @@
             "schema": {
               "type": "number",
               "format": "double"
-            }
+            },
+            "description": "the id that you wanna remove from the cart"
           },
           {
             "$ref": "#/components/parameters/ModelPKParam-cart"
@@ -5648,6 +7504,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Cannot destroy, **Cart** record with specified ID **NOT** found"
@@ -5725,6 +7584,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -5851,6 +7713,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Response denoting **Cat** record with specified ID **NOT** found"
@@ -5986,11 +7851,343 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Cat** record with specified ID **NOT** found"
           },
           "500": {
             "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/coupon": {
+      "get": {
+        "summary": "List Coupon (find where)",
+        "description": "Find a list of **Coupon** records that match the specified criteria.",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-where",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-where"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AttributeFilterParam"
+          },
+          {
+            "$ref": "#/components/parameters/WhereQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SkipQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SortQueryParam"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,code,from,to,includes,discount,description"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,code,from,to,includes,discount,description"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a paged list of **Coupon** records that match the specified criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/coupon"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Coupon(Admin Only)",
+        "description": "Create the coupon",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/create",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/create"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The coupon code"
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid from date (must be Javascript date readable)"
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Valid to date (must be Javascript date readable)"
+          },
+          {
+            "in": "query",
+            "name": "includes",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "example": [
+                1,
+                2,
+                3
+              ]
+            },
+            "description": "Includes equipt. ID array"
+          },
+          {
+            "in": "query",
+            "name": "discount",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "example": 0.5
+            }
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "About the coupon"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "description": "JSON dictionary representing the Coupon instance to create.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/coupon"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coupon/{_id}": {
+      "get": {
+        "summary": "Get Coupon (find one)",
+        "description": "Look up the **Coupon** record with the specified ID.",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-one",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-one"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-coupon"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,code,from,to,includes,discount,description"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,code,from,to,includes,discount,description"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a single **Coupon** record as a JSON dictionary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/coupon"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Response denoting **Coupon** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Coupon",
+        "description": "Update the discount of the coupon",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/update",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/update"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-coupon"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with the newly updated **Coupon** record as a JSON dictionary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/coupon"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Cannot update, **Coupon** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "description": "JSON dictionary representing the Coupon instance to update.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/coupon-without-required-constraint"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Destroy Coupon",
+        "description": "An action to destroy coupon from user session",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/destroy",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/destroy"
+        },
+        "tags": [
+          "Coupon"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-coupon"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Cannot destroy, **Coupon** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -6062,6 +8259,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -6275,6 +8475,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Response denoting **Equipt** record with specified ID **NOT** found"
           },
@@ -6285,7 +8488,7 @@
       },
       "patch": {
         "summary": "Update",
-        "description": "Update equipt.",
+        "description": "Update equipt. using the specified id provided by the admin.",
         "externalDocs": {
           "url": "https://sailsjs.com/documentation/reference/blueprint-api/update",
           "description": "See https://sailsjs.com/documentation/reference/blueprint-api/update"
@@ -6495,8 +8698,273 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Equipt** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/image": {
+      "get": {
+        "summary": "List Image (find where)",
+        "description": "Find a list of **Image** records that match the specified criteria.",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-where",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-where"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AttributeFilterParam"
+          },
+          {
+            "$ref": "#/components/parameters/WhereQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SkipQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SortQueryParam"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,title,file,description"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,title,file,description"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a paged list of **Image** records that match the specified criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/image"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Image",
+        "description": "Create a new **Image** record.",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/create",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/create"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Responds with a JSON dictionary representing the newly created **Image** instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "description": "JSON dictionary representing the Image instance to create.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/image"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image/{_id}": {
+      "get": {
+        "summary": "Get Image (find one)",
+        "description": "Look up the **Image** record with the specified ID.",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/find-one",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/find-one"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-image"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,title,file,description"
+            },
+            "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
+          },
+          {
+            "in": "query",
+            "name": "omit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "createdAt,updatedAt,id,title,file,description"
+            },
+            "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a single **Image** record as a JSON dictionary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Response denoting **Image** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Image",
+        "description": "Update an existing **Image** record.",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/update",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/update"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-image"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with the newly updated **Image** record as a JSON dictionary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors; details in JSON response"
+          },
+          "404": {
+            "description": "Cannot update, **Image** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "description": "JSON dictionary representing the Image instance to update.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/image-without-required-constraint"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Image (destroy)",
+        "description": "Delete the **Image** record with the specified ID.",
+        "externalDocs": {
+          "url": "https://sailsjs.com/documentation/reference/blueprint-api/destroy",
+          "description": "See https://sailsjs.com/documentation/reference/blueprint-api/destroy"
+        },
+        "tags": [
+          "Image"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ModelPKParam-image"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Responds with a JSON dictionary representing the destroyed **Image** instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Cannot destroy, **Image** record with specified ID **NOT** found"
           },
           "500": {
             "description": "Internal server error"
@@ -6537,7 +9005,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -6547,7 +9015,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }
@@ -6572,6 +9040,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Resource not found"
           },
@@ -6594,7 +9065,7 @@
           {
             "in": "query",
             "name": "name",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -6604,34 +9075,23 @@
             "name": "useUD",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "boolean"
             }
           },
           {
             "in": "query",
             "name": "notes",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
-            "name": "phone",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string"
             }
           },
           {
             "in": "query",
-            "name": "status",
-            "required": true,
+            "name": "phone",
+            "required": false,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "string"
             }
           }
         ],
@@ -6699,7 +9159,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -6709,7 +9169,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,useUD,notes,phone,status"
+              "example": "createdAt,updatedAt,id,name,notes,phone,status,contains,from,to,userID,price"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }
@@ -6724,6 +9184,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Response denoting **Order** record with specified ID **NOT** found"
@@ -6877,6 +9340,9 @@
               }
             }
           },
+          "400": {
+            "description": "data specified error"
+          },
           "404": {
             "description": "Cannot destroy, **Order** record with specified ID **NOT** found"
           },
@@ -6953,6 +9419,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Resource not found"
@@ -7053,6 +9522,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Response denoting **User** record with specified ID **NOT** found"
@@ -7197,6 +9669,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "data specified error"
           },
           "404": {
             "description": "Cannot destroy, **User** record with specified ID **NOT** found"
