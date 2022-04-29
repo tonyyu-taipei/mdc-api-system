@@ -39,18 +39,21 @@ module.exports = {
         if(err){
           sails.log.error(err);
           return exits.err(900)}
-        sails.log(uploaded.fd.split("/images/")[1]);
         try{          
           let _img = await Image.create({
               title: inputs.title,
               description: inputs.description,
-              file: uploaded.fd.split("/images/")[1]
+              file: uploaded[0].fd.split("/images/")[1]
             }).fetch();
 
             return exits.success(_img);
           }
         catch(err){
-          fs.unlinkSync(require('path').resolve(sails.config.appPath, 'assets/images/'+uploaded[0].fd.split("/images/")[1]));
+          try{
+            fs.unlinkSync(require('path').resolve(sails.config.appPath, 'assets/images/'+uploaded[0].fd.split("/images/")[1]));
+          }catch(e){
+            sails.log.error(e);
+          }
           return exits.err(901);
         }
         })
