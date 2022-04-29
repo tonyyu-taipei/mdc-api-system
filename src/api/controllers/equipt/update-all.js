@@ -37,6 +37,19 @@ module.exports = {
   
   
     fn: async function (inputs,exits) {
+      if(inputs.monthlyDiscount == 1){
+        let sqlTemp = `UPDATE public.equipt SET "monthlyDiscount" = null
+        WHERE name ='${inputs.name}'`;
+        let _delMonthly = await sails.sendNativeQuery(sqlTemp, []);
+
+        if(_delMonthly.rowCount == 0){
+          return exits.err({
+            status: 'err',
+            message: '刪除月租資訊失敗'
+          });
+        }
+        delete inputs.monthlyDiscount;
+      }
       let _update = await Equipt.update({
         name: inputs.name,
       }).set({
