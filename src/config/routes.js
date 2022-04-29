@@ -73,7 +73,11 @@ module.exports.routes = {
     'POST /api/coupon':'coupon/create',
     "PUT /api/coupon/update":"coupon/update",
     'DELETE /api/coupon':"coupon/destroy",
-
+// 圖片相關
+    'POST /api/img':'img/create',
+    'DELETE /api/img/:title':'img/destroy', 
+    "GET /api/img":"img/find",
+    
     //Swagger 
     'get /swagger.json': (_, res) => {
       const swaggerJson = require('../swagger/swagger.json')
