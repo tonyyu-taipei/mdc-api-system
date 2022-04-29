@@ -15,7 +15,7 @@ module.exports = {
     photo: { type: 'string' , columnType:'text', defaultsTo:"notfound.png" },  // 器材圖片
     description: { type: 'string', required: true , columnType:'text' },  // 器材介紹
     price	: { type: 'number', required: true , columnType:'int2' },  // 日租價
-    monthlyDiscount	: { type: 'string', required: false , columnType:'text' },  // 長租優惠比率
+    monthlyDiscount	: { type: 'string', required: false , columnType:'text', allowNull: true },  // 長租優惠比率
     mount	: { type: 'string', required: false , columnType:'text' },  // 相機/鏡頭接環規格	
     available	: { type: 'number', required: true , columnType:'int2' },  // 相機/鏡頭接環規格	
     brand	: { type: 'number', required: true , columnType:'int2' },  // 相機/鏡頭接環規格	
