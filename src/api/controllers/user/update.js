@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const random = (Math.random() + 1).toString(36).substring(2); 
 const mail = sails.helpers.mailer;
 module.exports={
@@ -52,8 +53,8 @@ module.exports={
             },
             select:['password']
         }).decrypt();
-
-        if(_chkPass.password !== inputs.password){
+        // Use bcrypt to compare passwords
+        if(!await bcrypt.compare(inputs.password, _chkPass.password)){
             return exits.err(102);
         }
         //更改姓名與電話區

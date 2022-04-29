@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const recaptcha = sails.helpers.recaptcha
 
 module.exports = {
@@ -40,10 +41,12 @@ module.exports = {
       return exits.err(103);
     }
 
-    // 檢查密碼是否正確
-    if (_u.password !== inputs.password) {
+    //Using bcrypt to compare passwords
+    const isValidPassword = await bcrypt.compare(inputs.password, _u.password);
+    if (!isValidPassword) {
       return exits.err(102);
     }
+    sails.log("The Password Gen. By bcrypt is:"+_u.password);
 
 
     // Recaptcha 認證（在開發模式下不進行驗證）

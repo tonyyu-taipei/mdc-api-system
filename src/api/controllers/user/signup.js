@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const mail = sails.helpers.mailer;
 const random = (Math.random() + 1).toString(36).substring(2); 
 const recaptcha = sails.helpers.recaptcha
@@ -14,7 +15,7 @@ module.exports = {
   inputs: {
     
     user: {type: "string", required: true }, // email
-    password: {type: "string", required: true, encrypt: true} , // 密碼
+    password: {type: "string", required: true} , // 密碼
     phone: {type: "string", required: true }, // 電話
     name: {type: "string", required: true }, // 名字
     recaptcha: {type:"string",required:true}
@@ -57,10 +58,10 @@ module.exports = {
 
     }
 
-
+    const passHash = await bcrypt.hash(inputs.password, 10);
     const data = {
       user: inputs.user,
-      password: inputs.password,
+      password: passHash,
       phone: inputs.phone,
       name: inputs.name,
       auth: random
