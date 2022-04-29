@@ -1,5 +1,4 @@
 # mdc-api-system
-mdc-equipt-api
 
 一個專為MDC器材租借系統而生的後端API。
 使用Sails.js製作，如要開始使用，請進入src中，
