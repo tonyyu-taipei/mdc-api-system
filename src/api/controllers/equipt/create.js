@@ -54,7 +54,7 @@ module.exports = {
       brand: inputs.brand,
       contains: inputs.contains,
       // rentedFrom: null
-    });
+    }).fetch();
       
     // All done.
     return exits.success(

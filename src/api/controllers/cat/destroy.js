@@ -33,11 +33,11 @@ module.exports = {
       return exits.err(304);
     } 
     
-    await Cat.update({id: inputs.id}).set({
-      active: false
-    });
-
-    return exits.success({});
+    const _del = await Cat.destroy({id: inputs.id}).fetch();
+    if(_del)
+    return exits.success(_del);
+    else
+    return exits.err(304);
 
 
 

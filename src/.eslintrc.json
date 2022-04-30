@@ -21,8 +21,9 @@
         "Order":true,
         "User_session":true,
         "Brand":true,
-        "Coupon":true
-
+        "Coupon":true,
+        "Image":true,
+        "...":true
 
 
     }

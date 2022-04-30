@@ -9,6 +9,7 @@
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
     "axios": "^0.26.1",
+    "bcrypt": "^5.0.1",
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.0",
     "jsonwebtoken": "^8.5.1",
@@ -23,6 +24,7 @@
     "sails-hook-swagger-generator": "^3.3.0",
     "sails-mongo": "^1.2.0",
     "sails-postgresql": "^4.0.0",
+    "skipper": "^0.9.1",
     "uuid": "^8.3.2",
     "uuidv4": "^6.2.3"
   },

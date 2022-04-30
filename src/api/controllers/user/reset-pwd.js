@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 module.exports = {
 
     friendlyName:"Reset Password",
@@ -43,15 +44,16 @@ module.exports = {
 
         if(!_select_u)
         return exits.err(104)
-
-        if(_select_u.password !== inputs.password){
+        // Use bcrypt to compare passwords
+        if(!await bcrypt.compare(inputs.password, _select_u.password)){
             return exits.err(102)
         }
-
+        // Use bcrypt to hash the new password
+        const hashedPassword = await bcrypt.hash(inputs.newPassword, 10);
         let _chgPass = await User.updateOne({
             where:{ user: inputs.user}
         }).set({
-            password: inputs.newPassword
+            password: hashedPassword
         })
 
         if(_chgPass){

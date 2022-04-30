@@ -103,8 +103,8 @@ module.exports = {
 
             case 2: //訂單成功通知
                 topic = `訂單已接收`;
-                content = `${inputs.name}您好！<br>我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。<br><br>若有任何問題，請洽info@mdcstudio.tw`;
-                contentTxt = `您好！ 我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。 若有任何問題，請洽info@mdcstudio.tw`
+                content = `${inputs.name}您好！<br>我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。<br><br>若有任何問題，請洽<br>info@mdcstudio.tw`;
+                contentTxt = `您好！ 我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。 若有任何問題，請洽：info@mdcstudio.tw`
                 break;
 
             default:
