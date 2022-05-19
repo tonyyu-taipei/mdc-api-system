@@ -31,7 +31,7 @@ module.exports = {
     });
 
     
-    if (!_ef) {
+    if (!_ef || _ef.access >= 2) {
       return exits.err(402);
     }
     

@@ -39,7 +39,7 @@ module.exports.security = {
       'http://127.0.0.1',
       'http://localhost',
       'http://localhost:8080',
-      'http://localhost:3000',
+      'https://localhost.com:3000',
       'https://rental.mdcstudio.tw:3000',
       'https://rental.mdcstudio.tw:8080',
       'https://rental.mdcstudio.tw',
