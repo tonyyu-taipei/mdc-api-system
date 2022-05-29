@@ -29,7 +29,7 @@ module.exports = {
   
   
     fn: async function (inputs,exits) {
-  
+      let fileReg =  /(.*?)\.(jpg|bmp|jpeg|png)$/;
       // upload the file
       inputs.file.upload({
         maxBytes: 1000000000,
@@ -39,7 +39,11 @@ module.exports = {
         if(err){
           sails.log.error(err);
           return exits.err(900)}
-        try{          
+        try{ 
+          if(!uploaded[0].fd.match(fileReg)){
+            fs.unlinkSync(require('path').resolve(sails.config.appPath, 'assets/images/'+uploaded[0].fd.split("/images/")[1]));
+            return exits.err(904);
+          }
           let _img = await Image.create({
               title: inputs.title,
               description: inputs.description,
