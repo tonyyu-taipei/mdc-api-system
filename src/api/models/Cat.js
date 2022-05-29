@@ -9,7 +9,7 @@ module.exports = {
 
   attributes: {
 
-    name: {type: "string", required: true , columnType:'text'}, // 分類名稱(英文)
+    name: {type: "string", required: true , columnType:'text', unique:true}, // 分類名稱(英文)
     chinese: {type: "string", required: true , columnType:'text'}, // 分類名稱(中文)
 
   },
