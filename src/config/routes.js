@@ -55,13 +55,14 @@ module.exports.routes = {
     'GET /api/brand/:id':'brand/find-one',
     'PUT /api/brand/:id': 'brand/update',
     'DELETE /api/brand/:id':'brand/destroy',
-    
+
   // 器材分類 Done
     'POST /api/cat':'cat/create',
     'GET /api/cat': 'cat/find',
     'GET /api/cat/:id':'cat/find-one',
     'PUT /api/cat/:id': 'cat/update',
     'DELETE /api/cat/:id':'cat/destroy',
+    'GET /api/cat/delete/:id':'cat/before-destroy',
 
   // 使用者傳送日期給伺服器
     'POST /api/equipt/date/range':'equipt/date-create',
