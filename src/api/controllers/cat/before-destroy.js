@@ -39,7 +39,7 @@ module.exports = {
       const _equipt = await Equipt.find({cat: inputs.id});
       if(_equipt.length)
       return exits.warning({
-        msgCH:`您確定要刪除本器材分類？尚有${_equipt.length}個器材在其中。`
+        msgCH:`您確定要刪除本器材分類？尚有${_equipt.length}個器材在其中，刪除後將會移至「未分類」區。`
       })
 
       return exits.success();
