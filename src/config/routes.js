@@ -43,7 +43,7 @@ module.exports.routes = {
     'PUT /api/equipt/:id': 'equipt/update',
     'PUT /api/equipt': 'equipt/update-all',
     'DELETE /api/equipt/:id':'equipt/destroy',
-    
+    'PUT /api/equipt/batch/id':"equipt/batch-update-id",    
   // 購物車系統
     'GET /api/equipt/cart':'cart/find',
     'POST /api/equipt/cart':'cart/create',

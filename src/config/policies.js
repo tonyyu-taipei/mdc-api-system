@@ -49,7 +49,7 @@ module.exports.policies = {
 "coupon/create":'check-admin',
 "order/find-contact":"check-admin",
 "cat/before-destroy":"check-admin",
-
+"equipt/batch-update-id":"check-admin",
 // any privillages.
 'user/logout':true,
   "main/index":true,
