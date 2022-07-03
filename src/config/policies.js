@@ -48,7 +48,7 @@ module.exports.policies = {
 "coupon/find-all":"check-admin",
 "coupon/create":'check-admin',
 "order/find-contact":"check-admin",
-
+"cat/before-destroy":"check-admin",
 
 // any privillages.
 'user/logout':true,

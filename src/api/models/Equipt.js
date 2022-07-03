@@ -11,7 +11,6 @@ module.exports = {
     name: { type: 'string', required: true , columnType:'varchar' },  // -器材名稱/型號	
     cat: { type: 'number', required: true , columnType:'int2' },  // 分類索引ID		
     belong: { type: 'number', required: true , columnType:'int2' }, // 創立者ID
-    access: { type: 'number', required: true , columnType:'int2' },  // 存取權限
     photo: { type: 'string' , columnType:'text', defaultsTo:"notfound.png" },  // 器材圖片
     description: { type: 'string', required: true , columnType:'text' },  // 器材介紹
     price	: { type: 'number', required: true , columnType:'int2' },  // 日租價

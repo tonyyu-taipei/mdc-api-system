@@ -10,7 +10,6 @@ module.exports = {
   inputs: {
     name: { type: 'string', required: true },  // -器材名稱/型號	
     cat: { type: 'number', required: true },  // 分類索引ID		
-    access: {type: 'number', required: true},
     description: { type: 'string', required: true },  // 器材介紹
     price	: { type: 'number', required: true },  // 日租價
     brand	: { type: 'number', required: true },  // 器材品牌名稱
