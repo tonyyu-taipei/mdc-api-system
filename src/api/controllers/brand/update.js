@@ -9,9 +9,8 @@ module.exports = {
 
   inputs: {
 
-    id: { type: 'number', autoIncrement: true, },
+    id: { type: 'number', required: true, },
     brand: {type: "string", required: true }, // 品牌名稱
-    amount: {type: "number", required: true }, // 品牌器材數量
 
   },
 

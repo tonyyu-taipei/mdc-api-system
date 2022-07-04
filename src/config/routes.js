@@ -55,6 +55,7 @@ module.exports.routes = {
     'GET /api/brand/:id':'brand/find-one',
     'PUT /api/brand/:id': 'brand/update',
     'DELETE /api/brand/:id':'brand/destroy',
+    'GET /api/brand/delete/:id':"brand/before-destroy",
 
   // 器材分類 Done
     'POST /api/cat':'cat/create',
