@@ -50,6 +50,7 @@ module.exports.policies = {
 "order/find-contact":"check-admin",
 "cat/before-destroy":"check-admin",
 "equipt/batch-update-id":"check-admin",
+"equipt/batch-update-name":"check-admin",
 // any privillages.
 'user/logout':true,
   "main/index":true,
