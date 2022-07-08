@@ -3,12 +3,13 @@ module.exports = {
 
     description:"Send All Special Events to Client",
 
+    inputs:{},
 
     exits:{
-        ok:{
+        success:{
             responseType:'ok'
         },
-        error:{
+        err:{
             responseType:'err'
         },
         warning:{
@@ -16,14 +17,14 @@ module.exports = {
         }
     },
     
-    fn: async function(exits){
+    fn: async function(inputs, exits){
         let _spe = await SpecialEvent.find({})
         
  
         if(_spe)
         return exits.success(_spe);
 
-        return exits.error();
+        return exits.err(1);
 
     }
 }
