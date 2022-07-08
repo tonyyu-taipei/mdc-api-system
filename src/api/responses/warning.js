@@ -55,7 +55,7 @@ module.exports = function ok(data, noLongerSupported) {
   }
   return res.json({
     status: "warning",
-    data:data,
+    msgCH:data
   });
 
 };

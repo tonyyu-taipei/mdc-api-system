@@ -43,7 +43,9 @@ module.exports.routes = {
     'PUT /api/equipt/:id': 'equipt/update',
     'PUT /api/equipt': 'equipt/update-all',
     'DELETE /api/equipt/:id':'equipt/destroy',
-    
+    'PUT /api/equipt/batch/id':"equipt/batch-update-id",    
+    'PUT /api/equipt/batch/name':"equipt/batch-update-name",    
+
   // 購物車系統
     'GET /api/equipt/cart':'cart/find',
     'POST /api/equipt/cart':'cart/create',
@@ -55,6 +57,7 @@ module.exports.routes = {
     'GET /api/brand/:id':'brand/find-one',
     'PUT /api/brand/:id': 'brand/update',
     'DELETE /api/brand/:id':'brand/destroy',
+    'GET /api/brand/delete/:id':"brand/before-destroy",
 
   // 器材分類 Done
     'POST /api/cat':'cat/create',
@@ -74,11 +77,15 @@ module.exports.routes = {
     'POST /api/coupon':'coupon/create',
     "PUT /api/coupon/update":"coupon/update",
     'DELETE /api/coupon':"coupon/destroy",
-// 圖片相關
+  // 圖片相關
     'POST /api/img':'img/create',
     'DELETE /api/img/:title':'img/destroy', 
     "GET /api/img":"img/find",
     
+  // 特殊檔期相關
+    'GET /api/special':'special/find',
+    'POST /api/special':'special/create',
+
     //Swagger 
     'get /swagger.json': (_, res) => {
       const swaggerJson = require('../swagger/swagger.json')

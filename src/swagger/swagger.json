@@ -168,7 +168,8 @@
             "description": "Note Sails special attributes: autoIncrement"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "uniqueItems": true
           },
           "chinese": {
             "type": "string"
@@ -244,7 +245,6 @@
               "name",
               "cat",
               "belong",
-              "access",
               "description",
               "price",
               "available",
@@ -279,10 +279,6 @@
             "format": "int64"
           },
           "belong": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "access": {
             "type": "integer",
             "format": "int64"
           },
@@ -851,24 +847,6 @@
           },
           {
             "in": "query",
-            "name": "belong",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
-            "name": "access",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
             "name": "description",
             "required": true,
             "schema": {
@@ -896,7 +874,7 @@
           {
             "in": "query",
             "name": "available",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "number",
               "format": "double"
@@ -1009,7 +987,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -1019,7 +997,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }
@@ -2445,6 +2423,159 @@
         }
       }
     },
+    "/api/equipt/batch/id": {
+      "put": {
+        "summary": "Batch Update",
+        "description": "Batch update the data of chosen equipt. using ID",
+        "tags": [
+          "Equipt"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {}
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cat",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "belong",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "access",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "available",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "query",
+            "name": "photo",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "contains",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "rentedFrom",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "monthlyDiscount",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
     "/api/equipt/date/range": {
       "post": {
         "summary": "DateRangeCreate",
@@ -2688,6 +2819,69 @@
           },
           "404": {
             "description": "Cannot destroy, **Cart** record with specified ID **NOT** found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/cat/delete/{_id}": {
+      "get": {
+        "summary": "Before Destroy",
+        "description": "An API to warn admin the amount of cat will be destroyed.",
+        "tags": [
+          "Cat"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Route pattern variable `_id`"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Success"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data specified error"
+          },
+          "404": {
+            "description": "Resource not found"
           },
           "500": {
             "description": "Internal server error"
@@ -4996,7 +5190,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -5006,7 +5200,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }
@@ -5064,7 +5258,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -5074,7 +5268,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }
@@ -5133,24 +5327,6 @@
           },
           {
             "in": "query",
-            "name": "belong",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
-            "name": "access",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
             "name": "description",
             "required": true,
             "schema": {
@@ -5178,7 +5354,7 @@
           {
             "in": "query",
             "name": "available",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "number",
               "format": "double"
@@ -5242,6 +5418,15 @@
               "description": "Note Sails special attributes: autoIncrement"
             },
             "description": "Note Sails special attributes: autoIncrement"
+          },
+          {
+            "in": "query",
+            "name": "belong",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "required": true
           },
           {
             "in": "query",
@@ -8225,7 +8410,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -8235,7 +8420,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }
@@ -8301,24 +8486,6 @@
           },
           {
             "in": "query",
-            "name": "belong",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
-            "name": "access",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "in": "query",
             "name": "description",
             "required": true,
             "schema": {
@@ -8346,7 +8513,7 @@
           {
             "in": "query",
             "name": "available",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "number",
               "format": "double"
@@ -8449,7 +8616,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to include in the result, specified as a comma-delimited list. By default, all attributes are selected. Not valid for plural (“collection”) association attributes."
           },
@@ -8459,7 +8626,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example": "createdAt,updatedAt,id,name,cat,belong,access,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
+              "example": "createdAt,updatedAt,id,name,cat,belong,photo,description,price,monthlyDiscount,mount,available,brand,contains,rentedFrom"
             },
             "description": "The attributes to exclude from the result, specified as a comma-delimited list. Cannot be used in conjuction with `select`. Not valid for plural (“collection”) association attributes."
           }

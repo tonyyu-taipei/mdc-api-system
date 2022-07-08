@@ -38,7 +38,6 @@ module.exports = {
       })
       data.concat(dataTmp);
     }
-    sails.log("User")
       data = data.filter(data=>{
         return data.available != 2;
       })

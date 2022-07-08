@@ -14,8 +14,8 @@ module.exports = function err(optionalData) {
   }
 
   if (e[optionalData] === undefined) {
-    sails.log.info('Custom response `res.trnError()` called with an Error: Error code not exists.');
-    return res.status(statusCodeToSet);
+    sails.log.info('Custom response `res.trnError()` called with an Error: Error code does not exist.');
+    return res.status(statusCodeToSet).send({status:"error", msgCH:"伺服器發生錯誤，請回報給系統管理員：Error code doesn't exist."})
   }
 
   const resData = {

@@ -23,8 +23,8 @@
         "Brand":true,
         "Coupon":true,
         "Image":true,
-        "...":true
-
+        "...":true,
+        "SpecialEvent":true
 
     }
 }
