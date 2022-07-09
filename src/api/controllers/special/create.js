@@ -16,7 +16,7 @@ module.exports={
         success:{
             responseType:'ok'
         },
-        error:{
+        err:{
             responseType:'err'
         },
         warning:{
@@ -28,7 +28,7 @@ module.exports={
 
         let validDate = isValid(new Date(inputs.from)) && isValid(new Date(inputs.to));
         if(!validDate)
-        return exits.error(1000);
+        return exits.err(1000);
 
         let reqRange = [inputs.from,inputs.to];
 
@@ -42,13 +42,13 @@ module.exports={
         description: inputs.description,
         from: reqRange[0],
         to: reqRange[1],
-        cat: inputs.cat
+        closedCat: inputs.cat
 
        }).fetch();
 
       if(_spe){
         return exits.success(_spe);
       } 
-      return exits.error(1001);
+      return exits.err(1001);
     }
 }

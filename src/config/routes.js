@@ -85,6 +85,8 @@ module.exports.routes = {
   // 特殊檔期相關
     'GET /api/special':'special/find',
     'POST /api/special':'special/create',
+    'DELETE /api/special/:id':"special/destroy",
+    'PUT /api/special':'special/update',
 
     //Swagger 
     'get /swagger.json': (_, res) => {
