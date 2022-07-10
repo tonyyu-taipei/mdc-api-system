@@ -24,6 +24,9 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
+    //取得所有特殊檔期
+    let special = await sails.helpers.specialEventArrayHelper()
+
     // 取得所有器材資料
       let data = await Equipt.find({});
 
