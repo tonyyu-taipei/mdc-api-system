@@ -32,8 +32,8 @@ module.exports.policies = {
 'order/create':'order-policies',
 
 //check if user's admin.
-'order/find-all':"check-admin",
-'order/find-pending':"check-admin",
+"order/find-all":"check-admin",
+"order/find-pending":"check-admin",
 'user/find-one':"check-admin",
 'user/destroy':'check-admin',
 "equipt/create":"check-admin",
@@ -51,6 +51,9 @@ module.exports.policies = {
 "cat/before-destroy":"check-admin",
 "equipt/batch-update-id":"check-admin",
 "equipt/batch-update-name":"check-admin",
+"special/create":"check-admin",
+"special/update":"check-admin",
+"special/destroy":"check-admin",
 // any privillages.
 'user/logout':true,
   "main/index":true,
