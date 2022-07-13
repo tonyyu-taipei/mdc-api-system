@@ -28,6 +28,7 @@ module.exports = {
 
 
   fn: async function (inputs,exits) {
+    var startOfDay = require('date-fns/startOfDay');
 
     const isValid = require('date-fns/isValid');
     let validDate = isValid(new Date(inputs.from)) && isValid(new Date(inputs.to));
@@ -39,15 +40,15 @@ module.exports = {
         reqRange[0] = temp;
     }
     var _update;
-    if(!validDate){
+    if(validDate){
       _update = await SpecialEvent.updateOne({
       id:inputs.id
       }).set({
         closedCat:inputs.cat,
         title: inputs.title,
         description: inputs.description,
-        from:reqRange[0],
-        to: reqRange[1]
+        from:startOfDay(new Date(reqRange[0])),
+        to: startOfDay(new Date(reqRange[1]))
       })
 
     }else{
