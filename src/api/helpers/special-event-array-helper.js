@@ -1,5 +1,5 @@
 async function isWithInIntervalFunc(specialDate,dateRange){
-    var isWithinInterval = require('date-fns/isWithinInterval');
+    var areIntervalsOverlapping= require('date-fns/areIntervalsOverlapping');
 
     //date debug tool
     sails.log("=====special date =====");
@@ -10,10 +10,12 @@ async function isWithInIntervalFunc(specialDate,dateRange){
     for(let data of dateRange){
         sails.log(new Date(data));
     }
-    sails.log(!(isWithinInterval(new Date(specialDate[0]),{start:new Date(dateRange[0]),end:new Date(dateRange[1])})||isWithinInterval(new Date(specialDate[1]),{start:new Date(dateRange[0]),end:new Date(dateRange[1])}))||isWithinInterval(new Date(dateRange[0]),{start: new Date(specialDate[0]), end: new Date(specialDate[1])}||isWithinInterval(new Date(dateRange[1]),{start:new Date(specialDate[0]), end: new Date(specialDate[1])})))
+    return !areIntervalsOverlapping(
+        {start: new Date(dateRange[0]), end: new Date(dateRange[1])},
+        {start: new Date(specialDate[0]), end: new Date(specialDate[1])},
+        {inclusive: true});
 
 
-    return !(isWithinInterval(new Date(specialDate[0]),{start:new Date(dateRange[0]),end:new Date(dateRange[1])})||isWithinInterval(new Date(specialDate[1]),{start:new Date(dateRange[0]),end:new Date(dateRange[1])}))||isWithinInterval(new Date(dateRange[0]),{start: new Date(specialDate[0]), end: new Date(specialDate[1])}||isWithinInterval(new Date(dateRange[1]),{start:new Date(specialDate[0]), end: new Date(specialDate[1])}));
 }
 async function specialConvertCat(id){
         const _find = await SpecialEvent.findOne({ id });
