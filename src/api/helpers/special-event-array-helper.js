@@ -1,15 +1,15 @@
 async function isWithInIntervalFunc(specialDate,dateRange){
     var areIntervalsOverlapping= require('date-fns/areIntervalsOverlapping');
 
-    //date debug tool
-    sails.log("=====special date =====");
-    for(let data of specialDate){
-        sails.log(new Date(data));
-    }
-    sails.log("===== dateRange =====");
-    for(let data of dateRange){
-        sails.log(new Date(data));
-    }
+    // //date debug tool
+    // sails.log("=====special date =====");
+    // for(let data of specialDate){
+    //     sails.log(new Date(data));
+    // }
+    // sails.log("===== dateRange =====");
+    // for(let data of dateRange){
+    //     sails.log(new Date(data));
+    // }
     return !areIntervalsOverlapping(
         {start: new Date(dateRange[0]), end: new Date(dateRange[1])},
         {start: new Date(specialDate[0]), end: new Date(specialDate[1])},
