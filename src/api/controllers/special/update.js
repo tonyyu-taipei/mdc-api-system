@@ -9,7 +9,7 @@ module.exports = {
 
   inputs: {
       id: {type:'number',required:true}, // 器材ID
-      cat:{type:'string'},
+      closedCat:{type:'string'},
       title:{type:"string"},
       description:{type:"string"},
       from:{type:"string"},
@@ -44,11 +44,11 @@ module.exports = {
       _update = await SpecialEvent.updateOne({
       id:inputs.id
       }).set({
-        closedCat:inputs.cat,
         title: inputs.title,
         description: inputs.description,
         from:startOfDay(new Date(reqRange[0])),
-        to: startOfDay(new Date(reqRange[1]))
+        to: startOfDay(new Date(reqRange[1])),
+        closedCat:inputs.closedCat
       })
 
     }else{
