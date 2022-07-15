@@ -2,19 +2,19 @@ async function isWithInIntervalFunc(specialDate,dateRange){
     var areIntervalsOverlapping= require('date-fns/areIntervalsOverlapping');
 
     //date debug tool
-    sails.log("=====special date =====");
-    for(let data of specialDate){
-        sails.log(new Date(data));
-    }
-    sails.log("===== dateRange =====");
-    for(let data of dateRange){
-        sails.log(new Date(data));
-    }
-    sails.log("Is it overlapping?");
-    sails.log(!areIntervalsOverlapping(
-        {start: new Date(dateRange[0]), end: new Date(dateRange[1])},
-        {start: new Date(specialDate[0]), end: new Date(specialDate[1])},
-        {inclusive: true}));
+    // sails.log("=====special date =====");
+    // for(let data of specialDate){
+    //     sails.log(new Date(data));
+    // }
+    // sails.log("===== dateRange =====");
+    // for(let data of dateRange){
+    //     sails.log(new Date(data));
+    // }
+    // sails.log("Is it overlapping?");
+    // sails.log(!areIntervalsOverlapping(
+    //     {start: new Date(dateRange[0]), end: new Date(dateRange[1])},
+    //     {start: new Date(specialDate[0]), end: new Date(specialDate[1])},
+    //     {inclusive: true}));
     return !areIntervalsOverlapping(
         {start: new Date(dateRange[0]), end: new Date(dateRange[1])},
         {start: new Date(specialDate[0]), end: new Date(specialDate[1])},
@@ -23,7 +23,6 @@ async function isWithInIntervalFunc(specialDate,dateRange){
 
 }
 async function specialConvertCat(id){
-        sails.log("Looking for: "+id);
         const _find = await SpecialEvent.findOne({ id });
         if(!_find){
             return 
@@ -47,9 +46,7 @@ async function specialConvertCat(id){
             }) 
             
         }
-        sails.log('splitting...')
         let res = _find.closedCat.split(',');
-        sails.log(res);
         return res;
 
 
@@ -75,14 +72,10 @@ module.exports = {
             let specialArr = [];
             for(let index in _spe){
                 specialArr.push(await new Promise(async (resolve)=>{
-                    sails.log("is array");
                     if(await isWithInIntervalFunc([_spe[index].from,_spe[index].to],inputs.session)){
-                        sails.log('resolved');
                         resolve();
                     }
                     let sendback = await specialConvertCat(_spe[index].id);
-                    sails.log("SendBack:");
-                    sails.log(sendback);
                     resolve(sendback);
 
                 }))
@@ -92,15 +85,12 @@ module.exports = {
         }
         }else{
             if(typeof _spe != undefined){
-            isWithInIntervalFunc([_spe.from,_spe.to],inputs.session)?resolve(null):sails.log('within interval');
+            isWithInIntervalFunc([_spe.from,_spe.to],inputs.session)?resolve(null):undefined;
             resolve(await specialConvertCat(_spe.id));
             }
             resolve(null);
         }
         });
-        sails.log();
-        sails.log("result = ");
-        sails.log(result)
         let outputArr = new Array();
         for(let index in result){
             for(let innerIndex in result[index]){
@@ -109,10 +99,6 @@ module.exports = {
                 }
             }
         }
-        sails.log();
-        sails.log();
-        sails.log("Final")
-        sails.log(Promise.all(outputArr));
         return exits.success(Promise.all(outputArr))
         
         }
