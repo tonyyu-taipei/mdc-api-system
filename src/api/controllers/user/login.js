@@ -46,8 +46,8 @@ module.exports = {
     if (!isValidPassword) {
       return exits.err(102);
     }
-    sails.log("The Password Gen. By bcrypt is:"+_u.password);
-
+    // sails.log("The Password Gen. By bcrypt is:"+_u.password);
+    sails.log("A User logged in");
 
     // Recaptcha 認證（在開發模式下不進行驗證）
     if(process.env.NODE_ENV =="production"){

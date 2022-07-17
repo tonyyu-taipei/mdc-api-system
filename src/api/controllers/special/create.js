@@ -16,7 +16,7 @@ module.exports={
         success:{
             responseType:'ok'
         },
-        error:{
+        err:{
             responseType:'err'
         },
         warning:{
@@ -24,11 +24,12 @@ module.exports={
         }
     },
     fn: async function(inputs, exits){
+        let startOfDay = require('date-fns/startOfDay')
         const isValid = require('date-fns/isValid');
 
         let validDate = isValid(new Date(inputs.from)) && isValid(new Date(inputs.to));
         if(!validDate)
-        return exits.error(1000);
+        return exits.err(1000);
 
         let reqRange = [inputs.from,inputs.to];
 
@@ -40,15 +41,15 @@ module.exports={
         let _spe = await SpecialEvent.create({
         title: inputs.title,
         description: inputs.description,
-        from: reqRange[0],
-        to: reqRange[1],
-        cat: inputs.cat
+        from: startOfDay(new Date(reqRange[0])),
+        to: startOfDay(new Date(reqRange[1])),
+        closedCat: inputs.cat
 
        }).fetch();
 
       if(_spe){
         return exits.success(_spe);
       } 
-      return exits.error(1001);
+      return exits.err(1001);
     }
 }

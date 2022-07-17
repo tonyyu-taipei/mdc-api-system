@@ -23,7 +23,10 @@ module.exports = {
 
 
   fn: async function (inputs,exits) {
-
+    //取得所有特殊檔期
+    let closedCat = undefined;
+    if(this.req.session.dateRange)
+    closedCat = await sails.helpers.specialEventArrayHelper(this.req.session.dateRange);
     // 取得所有器材資料
       let data = await Equipt.find({});
 
@@ -41,6 +44,13 @@ module.exports = {
       data = data.filter(data=>{
         return data.available != 2;
       })
+      if(closedCat){
+        data.forEach((element, index)=>{
+          if(closedCat.includes(element.cat)){
+            data[index].available = 3;
+          }
+        })
+      }
     // All done.
       return exits.success({data: data});
   }
