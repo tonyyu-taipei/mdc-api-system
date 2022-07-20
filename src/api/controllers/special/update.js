@@ -33,13 +33,17 @@ module.exports = {
     const isValid = require('date-fns/isValid');
     let validDate = isValid(new Date(inputs.from)) && isValid(new Date(inputs.to));
     let reqRange = [inputs.from,inputs.to];
-
     if(new Date(reqRange[1]).getTime() < new Date(reqRange[0]).getTime()){
         let temp = reqRange[1];
         reqRange[1] = reqRange[0];
         reqRange[0] = temp;
     }
     var _update;
+    let closedCat = inputs.closedCat;
+    sails.log(closedCat.substring(0,1));
+    if(closedCat.startsWith(',')){
+      closedCat = closedCat.substring(1);
+    }
     if(validDate){
       _update = await SpecialEvent.updateOne({
       id:inputs.id
@@ -48,7 +52,7 @@ module.exports = {
         description: inputs.description,
         from:startOfDay(new Date(reqRange[0])),
         to: startOfDay(new Date(reqRange[1])),
-        closedCat:inputs.closedCat
+        closedCat
       })
 
     }else{
@@ -57,7 +61,7 @@ module.exports = {
       }).set({
         title: inputs.title,
         description: inputs.description,
-        closedCat:inputs.cat,
+        closedCat,
       })
     }
 

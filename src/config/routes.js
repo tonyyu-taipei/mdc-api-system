@@ -87,7 +87,7 @@ module.exports.routes = {
     'GET /api/special/:id':'special/find-one',
     'POST /api/special':'special/create',
     'DELETE /api/special/:id':"special/destroy",
-    'PUT /api/special':'special/update',
+    'PUT /api/special/:id':'special/update',
 
     //Swagger 
     'get /swagger.json': (_, res) => {
