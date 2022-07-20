@@ -24,4 +24,8 @@ MAILHOST=SMTP伺服器，如：'smtp-relay.sendinblue.com'
 
 
 ADMINCLIENT=管理者客戶端路徑
+
+LINE_CHID=Line的ChannelID
+LINE_CHSECRET=Line的ChannelSecret
+LINE_CHTOKEN=Line的ChannelToken
 ```
