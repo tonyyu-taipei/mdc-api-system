@@ -41,20 +41,21 @@ module.exports = {
                 if(_ud.monthlyDiscount!==void 0 && days >= 30){
 
                     //if there is coupon and the coupon includes the equiptment(!-1)
+
                     if(coupon && coupon.includes.indexOf(data) !== -1 ){
-                        price += _ud.price*_ud.monthlyDiscount * coupon.discount
-                    }else if(coupon.includes == null){
-                         price += _ud.price*_ud.monthlyDiscount*coupon.discount;
+                        price += _ud.price*_ud.monthlyDiscount * coupon?.discount
+                    }else if(coupon && coupon.includes == null){
+                         price += _ud.price*_ud.monthlyDiscount*coupon?.discount;
                     }else{
-                        price += _ud.price*_ud.monthlyDiscount;
+                        price += _ud.price*_ud?.monthlyDiscount;
                     }
                 
                 }else{
                     //if the "includes" session in the coupon is null, discount all of the items.
                     if(coupon && !coupon.includes){
-                        price += _ud.price * coupon.discount;
+                        price += _ud.price * coupon?.discount;
                     }else if(coupon && coupon.includes.indexOf(data) !== -1 ){
-                        price += _ud.price*_ud.monthlyDiscount * coupon.discount
+                        price += _ud.price*_ud.monthlyDiscount * coupon?.discount
                     }else{
                         price += _ud.price;
                     }
