@@ -26,7 +26,7 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
-    const _ef = await Equipt.findOne({
+    let _ef = await Equipt.findOne({
       id: inputs.id
     });
 
@@ -39,6 +39,14 @@ module.exports = {
     if(_ef.available == 2){
       if(!this.req.session.user?.admin)
       return exits.err(402);
+    }
+    let closedCat = undefined;
+    if(this.req.session.dateRange)
+    closedCat = await sails.helpers.specialEventArrayHelper(this.req.session.dateRange);
+
+    if(closedCat.includes(_ef.cat)){
+      _ef.available = 3;
+
     }
     
     return exits.success(_ef);

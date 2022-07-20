@@ -84,6 +84,7 @@ module.exports.routes = {
     
   // 特殊檔期相關
     'GET /api/special':'special/find',
+    'GET /api/special/:id':'special/find-one',
     'POST /api/special':'special/create',
     'DELETE /api/special/:id':"special/destroy",
     'PUT /api/special':'special/update',
