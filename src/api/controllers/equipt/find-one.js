@@ -44,7 +44,7 @@ module.exports = {
     if(this.req.session.dateRange)
     closedCat = await sails.helpers.specialEventArrayHelper(this.req.session.dateRange);
 
-    if(closedCat.includes(_ef.cat)){
+    if(Array.isArray(closedCat) && closedCat.includes(_ef.cat)){
       _ef.available = 3;
 
     }

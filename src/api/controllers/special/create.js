@@ -43,7 +43,7 @@ module.exports={
         description: inputs.description,
         from: startOfDay(new Date(reqRange[0])),
         to: startOfDay(new Date(reqRange[1])),
-        closedCat: inputs.cat
+        closedCat: inputs.closedCat
 
        }).fetch();
 
