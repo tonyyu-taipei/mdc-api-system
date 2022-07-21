@@ -40,7 +40,6 @@ module.exports = {
     }
     var _update;
     let closedCat = inputs.closedCat;
-    sails.log(closedCat.substring(0,1));
     if(closedCat.startsWith(',')){
       closedCat = closedCat.substring(1);
     }
