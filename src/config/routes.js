@@ -44,7 +44,7 @@ module.exports.routes = {
     'GET /api/equipt/:id/:edit':'equipt/find-one',
     'GET /api/equipt/name/:name/:edit':'equipt/find-one',
     'PUT /api/equipt/:id': 'equipt/update',
-    'PUT /api/equipt': 'equipt/update-all',
+    'PUT /api/equipt/name/:name': 'equipt/update-all',
     'DELETE /api/equipt/:id':'equipt/destroy',
     'PUT /api/equipt/batch/id':"equipt/batch-update-id",    
     'PUT /api/equipt/batch/name':"equipt/batch-update-name",    
