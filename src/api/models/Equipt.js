@@ -16,9 +16,9 @@ module.exports = {
     price	: { type: 'number', required: true , columnType:'int2' },  // 日租價
     monthlyDiscount	: { type: 'string', required: false , columnType:'text', allowNull: true },  // 長租優惠比率
     mount	: { type: 'string', required: false , columnType:'text' },  // 相機/鏡頭接環規格	
-    available	: { type: 'number', required: true , columnType:'int2' },  // 相機/鏡頭接環規格	
-    brand	: { type: 'number', required: true , columnType:'int2' },  // 相機/鏡頭接環規格	
-    contains	: { type: 'string', required: false , columnType:'text' },  // 相機/鏡頭接環規格	
+    available	: { type: 'number', required: true , columnType:'int2' },  // 借用狀態	
+    brand	: { type: 'number', required: true , columnType:'int2' },  // 廠牌
+    contains	: { type: 'json', required: false  },  // 內附器材
     rentedFrom: { type: 'string', required: false , columnType:'text' },  // 從何時租到何時，各個日期都是JS 的new Date()
   },
 

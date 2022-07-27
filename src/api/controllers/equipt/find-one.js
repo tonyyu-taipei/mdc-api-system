@@ -9,7 +9,9 @@ module.exports = {
 
   inputs: {
 
-    id: {type: 'number' , required: true}
+    id: {type: 'number'},
+    name: { type:'string' },
+    edit: {type:"boolean", defaultsTo:false}
 
   },
 
@@ -25,10 +27,20 @@ module.exports = {
 
 
   fn: async function (inputs,exits) {
-
-    const _ef = await Equipt.findOne({
-      id: inputs.id
-    });
+    let _ef;
+    // Search By ID
+    if(inputs.id){
+      _ef= await Equipt.findOne({
+        id: inputs.id
+      });
+    }
+    
+    // Search By Name
+    if(inputs.name){
+      _ef = await Equipt.find({
+        name: inputs.name
+      })
+    }
 
 
     if (!_ef) {
@@ -39,6 +51,14 @@ module.exports = {
     if(_ef.available == 2){
       if(!this.req.session.user?.admin)
       return exits.err(402);
+    }
+    let closedCat = undefined;
+    if(this.req.session.dateRange && !inputs.edit)
+    closedCat = await sails.helpers.specialEventArrayHelper(this.req.session.dateRange);
+
+    if(Array.isArray(closedCat) && closedCat.includes(_ef.cat) && !inputs.edit){
+      _ef.available = 3;
+
     }
     
     return exits.success(_ef);

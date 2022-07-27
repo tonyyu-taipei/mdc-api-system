@@ -9,7 +9,7 @@ module.exports={
         description:{type:"string"},
         from:{type:"string", required:true,description:"must be valid javascript new date()"},
         to:{type:"string", required:true,description:"must be valid javascript new date()"},
-        cat:{type:"string", required:true, description:"use comma to select multiple cats. ALL to select all, NONE to select none."}
+        closedCat:{type:"string", required:true, description:"use comma to select multiple cats. ALL to select all, NONE to select none."}
         
     },
     exits:{
@@ -43,7 +43,7 @@ module.exports={
         description: inputs.description,
         from: startOfDay(new Date(reqRange[0])),
         to: startOfDay(new Date(reqRange[1])),
-        closedCat: inputs.cat
+        closedCat: inputs.closedCat
 
        }).fetch();
 

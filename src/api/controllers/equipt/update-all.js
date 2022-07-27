@@ -9,6 +9,7 @@ module.exports = {
   
     inputs: {
         name: { type: 'string', required:true},  // -器材名稱/型號	
+        rename: {type: 'string'},
         cat: { type: 'number'},  // 分類索引ID		
         belong: { type: 'number'}, // 創立者ID
         access: { type: 'number'},  // 存取權限
@@ -19,7 +20,7 @@ module.exports = {
   
   
         photo: { type: 'string'},  // 器材圖片
-        contains	: { type: 'string'},  // 包含器材ID
+        contains	: { type: 'json'},  // 包含器材ID
         rentedFrom: { type: 'string'},  // 從何時租到何時，各個日期都是JS 的new Date()，訂單建立時才會加入，新增器材時先忽略
         monthlyDiscount	: { type: 'string'},  // 長租優惠比率
   
@@ -37,6 +38,7 @@ module.exports = {
   
   
     fn: async function (inputs,exits) {
+
       if(inputs.monthlyDiscount == 1){
         let sqlTemp = `UPDATE public.equipt SET "monthlyDiscount" = null
         WHERE name ='${inputs.name}'`;
@@ -53,7 +55,7 @@ module.exports = {
       let _update = await Equipt.update({
         name: inputs.name,
       }).set({
-        name: inputs.name,
+        name: inputs.rename,
         cat: inputs.cat,
         belong: inputs.belong,
         access: inputs.access,

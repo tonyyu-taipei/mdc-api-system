@@ -18,7 +18,7 @@ module.exports = {
         brand	: { type: 'number'},  // 器材品牌名稱
         available	: { type: 'number'},  // 維護狀況
         photo: { type: 'string'},  // 器材圖片
-        contains	: { type: 'string'},  // 包含器材ID
+        contains	: { type: 'json'},  // 包含器材ID
         rentedFrom: { type: 'string'},  // 從何時租到何時，各個日期都是JS 的new Date()，訂單建立時才會加入，新增器材時先忽略
         monthlyDiscount	: { type: 'string'},  // 長租優惠比率
     },
