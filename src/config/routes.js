@@ -78,6 +78,7 @@ module.exports.routes = {
   // 優惠碼
     'GET /api/coupon':"coupon/find-all",
     'GET /api/coupon/:code':"coupon/find-one",
+    'GET /api/coupon/id/:id':"coupon/find-id",
     'POST /api/coupon':'coupon/create',
     "PUT /api/coupon/update":"coupon/update",
     'DELETE /api/coupon':"coupon/destroy",

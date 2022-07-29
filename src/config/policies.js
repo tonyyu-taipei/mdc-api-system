@@ -46,6 +46,7 @@ module.exports.policies = {
 "brand/create":"check-admin",
 "brand/update":"check-admin",
 "coupon/find-all":"check-admin",
+"coupon/find-id":"check-admin",
 "coupon/create":'check-admin',
 "order/find-contact":"check-admin",
 "cat/before-destroy":"check-admin",
