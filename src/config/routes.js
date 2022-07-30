@@ -82,6 +82,7 @@ module.exports.routes = {
     'POST /api/coupon':'coupon/create',
     "PUT /api/coupon/update":"coupon/update",
     'DELETE /api/coupon':"coupon/destroy",
+    'DELETE /api/coupon/delete/:id':"coupon/delete",
   // 圖片相關
     'POST /api/img':'img/create',
     'DELETE /api/img/:title':'img/destroy', 
