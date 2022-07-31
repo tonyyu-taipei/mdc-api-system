@@ -9,6 +9,7 @@ module.exports = {
   
     inputs: {
         name: { type: 'json',columnType:"array", required:true},  // -器材名稱/型號	
+        rename: {type: 'string'},
         cat: { type: 'number'},  // 分類索引ID		
         belong: { type: 'number'}, // 創立者ID
         access: { type: 'number'},  // 存取權限
@@ -44,6 +45,7 @@ module.exports = {
               var _update = await Equipt.update({
                 name: inputs.name[i] 
               }).set({
+                name: inputs.rename,
                 cat: inputs.cat,
                 belong: inputs.belong,
                 access: inputs.access,
