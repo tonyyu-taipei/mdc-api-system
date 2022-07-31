@@ -54,6 +54,8 @@ module.exports.policies = {
 "cat/before-destroy":"check-admin",
 "equipt/batch-update-id":"check-admin",
 "equipt/batch-update-name":"check-admin",
+"equipt/batch-destroy-id":"check-admin",
+"equipt/batch-destroy-name":"check-admin",
 "special/create":"check-admin",
 "special/update":"check-admin",
 "special/destroy":"check-admin",
