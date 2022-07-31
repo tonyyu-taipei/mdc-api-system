@@ -58,9 +58,9 @@ module.exports = {
                 brand: inputs.brand,
                 contains: inputs.contains,
               }).fetch();
-              if(_update){
+              if(_update.length){
                 resolve(_update);
-                if(i === inputs.id.length-1){
+                if(i == inputs.id.length-1){
                   doneFunc();
                 }
               }else{

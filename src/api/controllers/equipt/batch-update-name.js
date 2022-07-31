@@ -56,7 +56,7 @@ module.exports = {
                 brand: inputs.brand,
                 contains: inputs.contains,
               }).fetch()
-              if(_update){
+              if(_update.length){
                 resolve(_update);
                 if(i== inputs.name.length-1){
                   doneFunc();
@@ -65,7 +65,6 @@ module.exports = {
                 reject("Error: Database cannot set the info that user provided");
               }
             })}catch(e){
-              sails.log(e)
               failed++;
               if(i == inputs.name.length-1){
                 doneFunc();
