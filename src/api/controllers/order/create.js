@@ -80,6 +80,21 @@ module.exports = {
         if(_e){
           let rented = _e.rentedFrom += dateToString;
           await Equipt.updateOne({id: equipt}).set({rentedFrom: rented})
+          if(_e.contains.length){
+            await new Promise(async resolve=>{
+              for(let i in _e.contains){
+
+                let  data = _e.contains[i];
+
+                let id = await Equipt.find({name: data,available:0});
+                await Equipt.updateOne({id}).set({rentedFrom: rented});
+
+                if(i ==(_e.contains.length)){
+                  resolve();
+                }
+              }
+            })
+          }
         }else{
           throw "can't find the specified Equipt."
         }
