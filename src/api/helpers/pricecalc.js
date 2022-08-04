@@ -71,7 +71,7 @@ module.exports = {
         })
 
 
-        sails.log(`Price ${price} Days ${days}`);
+        price = Math.round(price);
         if(!inputs.equiptId.length){
             return exits.success(0);
         }
