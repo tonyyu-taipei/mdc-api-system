@@ -30,6 +30,8 @@ module.exports = {
         
         let reqRange = inputs.range;
         if(isToday(new Date(reqRange[0])) || isFuture(new Date(reqRange[0])) && isToday(new Date(reqRange[1])) || isFuture(new Date(reqRange[1]))){
+
+            //順序調換
             if(new Date(reqRange[1]).getTime() < new Date(reqRange[0]).getTime()){
                 let temp = reqRange[1];
                 reqRange[1] = reqRange[0];
