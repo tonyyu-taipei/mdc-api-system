@@ -67,6 +67,7 @@ module.exports = {
         available: inputs.available,
         brand: inputs.brand,
         contains: inputs.contains,
+        rentedFrom: inputs.rentedFrom
       }).fetch(); 
       
 
