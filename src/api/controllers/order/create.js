@@ -31,6 +31,9 @@ module.exports = {
     },
     err: {
       responseType: 'err'
+    },
+    warning: {
+      responseType: 'warning'
     }
   },
 
@@ -69,7 +72,23 @@ module.exports = {
 
 
     const _create = await Order.create(data).fetch();
-
+    let dateToString = this.req.session.dateRange.toString();
+    var failedAttmpt = 0; 
+    for(let equipt of this.req.session.cart.items){
+      try{
+        let _e = await Equipt.findOne({id: equipt})
+        if(_e){
+          let rented = _e.rentedFrom += dateToString;
+          await Equipt.updateOne({id: equipt}).set({rentedFrom: rented})
+        }else{
+          throw "can't find the specified Equipt."
+        }
+    }catch(e){
+      failedAttmpt = failedAttmpt+ 1;
+      sails.log("Order System:");
+      sails.log(e);
+    }
+    }
     // All done.
     try{
     await mailer(this.req.session.user.name,this.req.session.user.user, "ffffff", 2)
@@ -77,7 +96,8 @@ module.exports = {
     catch(err){
       return exits.error(err);
     }
-    
+    if(failedAttmpt)
+    return exits.warning(`無法找到${failedAttmpt}個器材，詳情請洽管理員。`);
     return exits.success(_create);
 
   }

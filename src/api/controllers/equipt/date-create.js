@@ -37,13 +37,15 @@ module.exports = {
               }
             await new Promise(resolve=>{
 
-                reqRange.forEach((data,i,arr)=>{
+                for(let i in reqRange){
+                    let data = reqRange[i];
+
                     reqRange[i] = startOfDay(new Date(data));
-                    if(i == arr.length-1){
+                    if(i == reqRange.length-1){
                         resolve();
                     }
 
-                })
+                }
             })
             this.req.session.dateRange = reqRange;
 
