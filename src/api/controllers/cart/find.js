@@ -29,14 +29,18 @@ module.exports={
     fn: async function (inputs,exits) {
       let price = 0;
       try{
+        sails.log(this.req.session.cart);
         if(this.req.session.dateRange && this.req.session.cart){
+          if(!this.req.session.cart.items.length){
+            delete this.req.session.cart;
+          }
           let from = startOfDay(new Date(this.req.session.dateRange[0]));  //init the date that the user selected
           let to = startOfDay(new Date(this.req.session.dateRange[1]));   // use start of day to ensure that the difference in days will be correct no matter of the time.
           if(this.req.session.cart.coupon !== void 0)
           price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(from, to)),this.req.session.cart.coupon)  //calculate the price using pricecal helpers. Sending the differences in date to the helpers.
-          else
-          price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(from, to)))  //calculate the price using pricecal helpers. Sending the differences in date to the helpers.
-
+          else{
+            price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(from, to)))  //calculate the price using pricecal helpers. Sending the differences in date to the helpers.
+          }
 
         }
       }
@@ -57,12 +61,14 @@ module.exports={
         }
 
         //success
-        return exits.success({
+        let res = {
           ...this.req.session.cart,
-          price,
-          msg:"Item added.",
-          msgCH:"商品已加入清單"
-        });
+
+        }
+        if(price){
+          res.price = price;
+        }
+        return exits.success(res);
 
   
     }
