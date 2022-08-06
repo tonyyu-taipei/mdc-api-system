@@ -21,6 +21,7 @@ module.exports = {
                                                                     // 16-於管理員已經正在聯絡中取消
                                                                     // 26-聯絡完成但使用者要求取消
     contains: { type: 'ref', columnType: 'integer[]', required:true, description: 'An array contains equipment IDs'},
+    bundled: {type: 'ref', columnType: 'integer[]', description: 'An array to take note of the included equipt ID'},
     from: {type: 'string', required:true, description:"rent from date "},
     to:{ type:'string', required: true, description:"to date"},
     userID:{type:"number", required:true, description:"the person created the order"},
