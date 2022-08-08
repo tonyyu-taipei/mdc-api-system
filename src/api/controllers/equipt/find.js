@@ -25,8 +25,14 @@ module.exports = {
   fn: async function (inputs,exits) {
     //取得所有特殊檔期
     let closedCat = undefined;
-    if(this.req.session.dateRange)
-    closedCat = await sails.helpers.specialEventArrayHelper(this.req.session.dateRange);
+    if(this.req.session.dateRange){
+      try{  
+        closedCat = await sails.helpers.specialEventArrayHelper(this.req.session.dateRange);
+      }catch(e){
+        closedCat = [];
+        sails.log(e);
+      }
+  }
     // 取得所有器材資料
       let data = await Equipt.find({});
 

@@ -8,7 +8,8 @@ module.exports = {
 
 
   inputs: {
-    id: {type: 'number' , required: true},
+    id: {type: 'number' },
+    name: {type: 'string'}
   },
 
   
@@ -24,17 +25,33 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
-    // 資料刪除
-    const _ed = await Equipt.findOne({id: inputs.id});
-    if(!_ed){
-      return exits.err(404);
-    } 
-    
-    await Equipt.update({id: inputs.id}).set({
-      active: false
-    });
 
-    return exits.success({});
+    let _res;
+    
+    // 資料刪除By ID
+    if(inputs.id){
+    _res = await Equipt.findOne({id: inputs.id});
+      if(!_res){
+       return exits.err(404);
+    } 
+  }
+    //資料刪除By Name
+
+    if(inputs.name){
+      _res = await Equipt.find({name: inputs.name})
+      if(!_res){
+        return exits.err(404);
+      }
+    }
+    let _del;
+
+    if(inputs.id){ 
+      _del = await Equipt.destroy({ id: inputs.id}).fetch();
+    }
+    else{
+      _del = await Equipt.destroy({ name: inputs.name}).fetch();
+    }
+    return exits.success(_del);
 
 
 

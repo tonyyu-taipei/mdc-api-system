@@ -46,9 +46,11 @@ module.exports.routes = {
     'PUT /api/equipt/:id': 'equipt/update',
     'PUT /api/equipt/name/:name': 'equipt/update-all',
     'DELETE /api/equipt/:id':'equipt/destroy',
+    'DELETE /api/equipt/name/:name':'equipt/destroy',
     'PUT /api/equipt/batch/id':"equipt/batch-update-id",    
     'PUT /api/equipt/batch/name':"equipt/batch-update-name",    
-
+    'DELETE /api/equipt/batch/id':"equipt/batch-destroy-id",    
+    'DELETE /api/equipt/batch/name':"equipt/batch-destroy-name",    
   // 購物車系統
     'GET /api/equipt/cart':'cart/find',
     'POST /api/equipt/cart':'cart/create',
@@ -77,9 +79,11 @@ module.exports.routes = {
   // 優惠碼
     'GET /api/coupon':"coupon/find-all",
     'GET /api/coupon/:code':"coupon/find-one",
+    'GET /api/coupon/id/:id':"coupon/find-id",
     'POST /api/coupon':'coupon/create',
     "PUT /api/coupon/update":"coupon/update",
     'DELETE /api/coupon':"coupon/destroy",
+    'DELETE /api/coupon/delete/:id':"coupon/delete",
   // 圖片相關
     'POST /api/img':'img/create',
     'DELETE /api/img/:title':'img/destroy', 

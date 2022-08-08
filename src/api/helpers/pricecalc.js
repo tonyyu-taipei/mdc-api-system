@@ -27,11 +27,16 @@ module.exports = {
         let price = 0;
         let days = inputs.days?inputs.days:1;
         let coupon = inputs.coupon;
-        await new Promise(resolve=>{
+        await new Promise(async resolve=>{
             //check if the array exists in the database
             //also fetch the price of the equipment.
-            equiptArr.forEach(async function(data, index, arr){
-                
+              for(let index in equiptArr){
+                if(!equiptArr.length){
+                    price = 0;
+                    resolve();
+                }
+                let data = equiptArr[index];
+                let arr = equiptArr;  
                 let _ud = await Equipt.findOne({
                     where:{id:data},
                     select:["price","monthlyDiscount"]
@@ -62,12 +67,15 @@ module.exports = {
                 }
                 if(index == arr.length-1)
                 resolve()
-            })
+            }
         })
 
 
-        
-        return exits.success(await price*days)
+        price = Math.round(price);
+        if(!inputs.equiptId.length){
+            return exits.success(0);
+        }
+        return exits.success(price*days)
 
         
         

@@ -30,6 +30,8 @@ module.exports = {
         
         let reqRange = inputs.range;
         if(isToday(new Date(reqRange[0])) || isFuture(new Date(reqRange[0])) && isToday(new Date(reqRange[1])) || isFuture(new Date(reqRange[1]))){
+
+            //順序調換
             if(new Date(reqRange[1]).getTime() < new Date(reqRange[0]).getTime()){
                 let temp = reqRange[1];
                 reqRange[1] = reqRange[0];
@@ -37,13 +39,15 @@ module.exports = {
               }
             await new Promise(resolve=>{
 
-                reqRange.forEach((data,i,arr)=>{
+                for(let i in reqRange){
+                    let data = reqRange[i];
+
                     reqRange[i] = startOfDay(new Date(data));
-                    if(i == arr.length-1){
+                    if(i == reqRange.length-1){
                         resolve();
                     }
 
-                })
+                }
             })
             this.req.session.dateRange = reqRange;
 

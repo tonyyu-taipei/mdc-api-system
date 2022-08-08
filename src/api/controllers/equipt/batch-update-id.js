@@ -39,11 +39,11 @@ module.exports = {
   
     fn: async function (inputs,exits) {
       var failed = 0; 
-      inputs.id.forEach(async (id,index,arr)=>{
+      for(let i in inputs.id){
         try {
               await new Promise(async (resolve, reject)=>{
               var _update = await Equipt.updateOne({
-                id:id
+                id:inputs.id[i]
               }).set({
                 name: inputs.name,
                 cat: inputs.cat,
@@ -57,10 +57,11 @@ module.exports = {
                 available: inputs.available,
                 brand: inputs.brand,
                 contains: inputs.contains,
-              })
-              if(_update){
+                rentedFrom: inputs.rentedFrom
+              }).fetch();
+              if(_update.length){
                 resolve(_update);
-                if(index === arr.length-1){
+                if(i == inputs.id.length-1){
                   doneFunc();
                 }
               }else{
@@ -68,11 +69,11 @@ module.exports = {
               }
             })}catch(e){
               failed++;
-              if(index === arr.length-1){
+              if(i == inputs.id.length-1){
                 doneFunc();
               }
             }
-          })
+          }
       
       // All done.
       function doneFunc(){
