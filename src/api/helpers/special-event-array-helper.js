@@ -15,10 +15,20 @@ async function isWithInIntervalFunc(specialDate,dateRange){
     //     {start: new Date(dateRange[0]), end: new Date(dateRange[1])},
     //     {start: new Date(specialDate[0]), end: new Date(specialDate[1])},
     //     {inclusive: true}));
-    return !areIntervalsOverlapping(
-        {start: new Date(dateRange[0]), end: new Date(dateRange[1])},
-        {start: new Date(specialDate[0]), end: new Date(specialDate[1])},
-        {inclusive: true});
+    let res= false;
+    try{
+        res = !areIntervalsOverlapping(
+            {start: new Date(dateRange[0]), end: new Date(dateRange[1])},
+            {start: new Date(specialDate[0]), end: new Date(specialDate[1])},
+            {inclusive: true});
+    }catch(e){
+        sails.log("SpecialEventHelper isWithInIntervalFunc Error:");
+        sails.log(e);
+        res = false;
+
+
+    }
+    return res
 
 
 }
