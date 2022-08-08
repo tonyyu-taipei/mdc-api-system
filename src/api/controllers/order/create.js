@@ -1,4 +1,45 @@
 const mailer = sails.helpers.mailer
+function isDateAvailable(inputedDate, rentedStr){
+   const isWithinInterval = require('date-fns/isWithinInterval');
+  let rentedDate = rentedStr.split(',');
+
+  //Debug
+  // sails.log('MainArr',rentedDate);
+  if(rentedDate.length == 0){
+    return false;
+  }
+
+  let result = false;
+  for(let index in rentedDate){
+    if(index % 2 != 0){
+      continue;
+    }
+    index = parseInt(index);
+    //Debug
+    // sails.log("inputedDate",inputedDate);
+    // sails.log("rentedDate",index+","+rentedDate[index]+"\r\n",(index+1)+","+rentedDate[index+1]);
+
+    let res = isWithinInterval(new Date(inputedDate[0]),{
+      start:new Date(rentedDate[index]),
+      end: new Date(rentedDate[index+1])
+    })||isWithinInterval(new Date(inputedDate[1]),{
+      start:new Date(rentedDate[index]),
+      end: new Date(rentedDate[index+1])
+    })||isWithinInterval(new Date(rentedDate[index]),{
+      start:new Date(inputedDate[0]),
+      end: new Date(inputedDate[1])
+    })||isWithinInterval(new Date(rentedDate[index+1]),{
+      start: new Date(inputedDate[0]),
+      end: new Date(inputedDate[1])
+    })
+
+    if(result==false&&res==true){
+      result=true;
+    }
+}
+  return result;
+
+}
 module.exports = {
 
 
@@ -70,6 +111,12 @@ module.exports = {
 
     }
 
+    //Check If The Item In The ContainsArr Not Being Rented.
+    for(let equipt of this.req.session.cart.items){
+      let _e = await Equipt.findOne({id: equipt, available:0})
+      if(!_e || isDateAvailable(this.req.session.dateRange,_e.rentedFrom))
+      return exits.err(402);
+    }
 
     const _create = await Order.create(data).fetch();
     let dateToString = this.req.session.dateRange.toString();
@@ -96,7 +143,7 @@ module.exports = {
             })
           }
         }else{
-          throw "can't find the specified Equipt."
+          throw "can't modify the specified Equipt."
         }
     }catch(e){
       failedAttmpt = failedAttmpt+ 1;
@@ -109,7 +156,7 @@ module.exports = {
     await mailer(this.req.session.user.name,this.req.session.user.user, "ffffff", 2)
     }
     catch(err){
-      return exits.error(err);
+      return exits.err(err);
     }
     if(failedAttmpt)
     return exits.warning(`無法找到${failedAttmpt}個器材，詳情請洽管理員。`);
