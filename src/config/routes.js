@@ -22,6 +22,7 @@ module.exports.routes = {
     'POST /api/user/forgot':'user/forgot-pwd',
     'GET /api/user/info':'user/find',
     'GET /api/user/me':'user/find-me',
+    'GET /api/user/me/:auth':'user/find-me',
     'GET /api/user/:id':'user/find-one',
     'DELETE /api/user/:id':'user/destroy',
     'PATCH /api/user/info':'user/update',

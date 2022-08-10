@@ -31,6 +31,7 @@ module.exports.security = {
   cors: {
     allRoutes: true,
     allowOrigins: [
+      'https://localhost:3000',
       'http://rental.mdcstudio.tw:3000',
       'http://rental.mdcstudio.tw:8080',
       'http://localhost:8081',
@@ -46,10 +47,11 @@ module.exports.security = {
       'http://home.tonyyu.taipei:3000',
       'http://192.168.68.73:8080',
       'https://stream.mdcstudio.tw',
-      'https://admin.mdcstudio.tw'
+      'https://admin.mdcstudio.tw',
   
   
   ],
+    allowRequestHeaders:"auth",
     allowCredentials: true,
   },
 
@@ -68,6 +70,6 @@ module.exports.security = {
   *                                                                           *
   ****************************************************************************/
 
-  // csrf: false
+  // csrf: true
 
 };
