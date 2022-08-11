@@ -65,7 +65,7 @@ module.exports = {
     name: { type: 'string', required: false, columnType:'varchar(10)' },  // 取件人名稱	
     useUD: { type: 'boolean', required: true  },  // 0- true 1- false
     notes: { type: 'string' },  // 備註		
-    phone: { type: 'string', required: false, columnType:'text' },  // 聯絡電話	
+    phone: { type: 'string', required: false, columnType:'text' },  // 聯絡電話
       // 0 -訂單等待管理員確認中 
       // 1 -管理員已經正在聯絡中 
       // 2-聯絡完成，等待取件借用 
@@ -109,7 +109,7 @@ module.exports = {
       notes: inputs.notes,
       phone: inputs.phone,
       name: inputs.name,
-
+      coupon: this.req.session.coupon,
       contains:this.req.session.cart.items,
       price,
       from: this.req.session.dateRange[0],
