@@ -44,7 +44,7 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
-
+    const isValid = require('date-fns/isValid');
     // 利用ID找尋相關資料
     const _fo = await Order.findOne({
       id: inputs.id
@@ -59,9 +59,17 @@ module.exports = {
       id: inputs.id
     }).set({
       notes: inputs.notes,
-      useUD: inputs.useUD,
       phone: inputs.phone,
-      name: inputs.name
+      name: inputs.name,
+      status: inputs.status,
+      contains: inputs.contains,
+      bundled: inputs.bundled,
+      price: inputs.price,
+      from: isValid(new Date(inputs.from))?inputs.from:undefined,
+      to: isValid(new Date(inputs.to))?inputs.to:undefined,
+      email: inputs.email
+ 
+
     }).fetch();
 
     return exits.success(_uo);
