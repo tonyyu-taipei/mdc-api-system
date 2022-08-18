@@ -26,7 +26,7 @@ module.exports={
         }
     
        //Find the order and modify the Order status
-       //change the status of the order to 1 represending that the order is being contacted.
+       //change the status of the order to 1 representing that the order is being contacted.
        // Find the userID in the order and find the email address of the user.
        const _u = await User.findOne({
               id:_of.userID
@@ -42,7 +42,7 @@ module.exports={
             id:inputs.id
         }).set({
             status:1
-        }); 
+        }).fetch(); 
         if(!_orderUpdate){
             return exits.err(503);  // if the order status is not updated, then return an error that the order id does not exist.
         }

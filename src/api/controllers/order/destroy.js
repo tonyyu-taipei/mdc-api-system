@@ -31,14 +31,15 @@ module.exports = {
     // 資料刪除
     const _od = await Order.findOne({id: inputs.id});
     if(!_od){
-      return exits.err(204);
+      return exits.err(504);
     } 
     
-    await Order.update({id: inputs.id}).set({
-      active: false
-    });
-
+    const _del = await Order.destroy({id: inputs.id}).fetch();
+    if(_del)
     return exits.success({});
+    else{
+      return exits.err(504);
+    }
 
   }
 

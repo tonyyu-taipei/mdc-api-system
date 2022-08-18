@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const random = (Math.random() + 1).toString(36).substring(2); 
 const recaptcha = sails.helpers.recaptcha
 
 module.exports = {
@@ -36,7 +37,7 @@ module.exports = {
       where: {user: inputs.user},
       select: ['user', 'password','name','permission','phone','id']
     }).decrypt();
-    
+    let genRandom = random;
     if (!_u) {
       return exits.err(103);
     }
@@ -49,7 +50,7 @@ module.exports = {
     // sails.log("The Password Gen. By bcrypt is:"+_u.password);
     sails.log("A User logged in");
 
-    // Recaptcha 認證（在開發模式下不進行驗證）
+    // Recaptcha 認證（在開發模式下不進行驗證，也不一定需要使用session）
     if(process.env.NODE_ENV =="production"){
 
       try{
@@ -60,6 +61,8 @@ module.exports = {
         exits.err(105);
       }
 
+    }else{
+      await User.updateOne({ user: inputs.user }).set({auth: genRandom})
     }
 
 
@@ -68,13 +71,17 @@ module.exports = {
       id:_u.id,
       user: _u.user,
       name: _u.name,
-      phone: _u.phone
+      phone: _u.phone,
+      auth: genRandom
      };
+
+
 
     // 檢查是否是管理員
     if(_u.permission == 1){
       this.req.session.user.admin = true;
       this.req.session.user.adminClient = process.env.ADMINCLIENT;
+      
     }
 
 

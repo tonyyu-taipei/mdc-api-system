@@ -25,7 +25,8 @@ module.exports = {
     from: {type: 'string', required:true, description:"rent from date "},
     to:{ type:'string', required: true, description:"to date"},
     userID:{type:"number", required:true, description:"the person created the order"},
-    price:{type:'number', required:true, description:"the total of the order"}
+    price:{type:'number', required:true, description:"the total of the order"},
+    coupon:{type:'string', description:"The coupon code of the order"}
 
    
     },                                                               

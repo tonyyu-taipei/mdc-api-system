@@ -65,7 +65,7 @@ module.exports = {
     name: { type: 'string', required: false, columnType:'varchar(10)' },  // 取件人名稱	
     useUD: { type: 'boolean', required: true  },  // 0- true 1- false
     notes: { type: 'string' },  // 備註		
-    phone: { type: 'string', required: false, columnType:'text' },  // 聯絡電話	
+    phone: { type: 'string', required: false, columnType:'text' },  // 聯絡電話
       // 0 -訂單等待管理員確認中 
       // 1 -管理員已經正在聯絡中 
       // 2-聯絡完成，等待取件借用 
@@ -109,7 +109,7 @@ module.exports = {
       notes: inputs.notes,
       phone: inputs.phone,
       name: inputs.name,
-
+      coupon: this.req.session.coupon,
       contains:this.req.session.cart.items,
       price,
       from: this.req.session.dateRange[0],
@@ -139,13 +139,15 @@ module.exports = {
     let dateToString = this.req.session.dateRange.toString();
     var failedAttmpt = 0; 
     var warningContains = 0;
-    for(let index in this.req.session.cart.items){
-      let equipt = this.req.session.cart.items[index];
-      await new Promise(async resolve=>{
+    await new Promise(async resolve=>{
+      for(let index in this.req.session.cart.items){
+        let equipt = this.req.session.cart.items[index];
+        sails.log('testing',equipt);
         try{
           let _e = await Equipt.findOne({id: equipt})
           if(_e){
             if(_e.contains.length){
+              //ok
               await new Promise(async resolve=>{
                 let bundled = [];
                 for(let i in _e.contains){
@@ -153,22 +155,24 @@ module.exports = {
                   for(let ii in data){
                     let id = await Equipt.find({name: _e.contains[i][ii],available:0});
                     // sails.log(id);
-                    let isAvailable =  isDateAvailable(this.req.session.dateRange,id[0].rentedFrom);
+                    for(let iii in id){
+                    let isAvailable =  isDateAvailable(this.req.session.dateRange,id[iii].rentedFrom);
                     // sails.log(isAvailable);
                     if(id && !isAvailable){
   
                       sails.log("Contains To ADD ID:",id);
                       await Equipt.updateOne({id:id[0].id}).set({rentedFrom: rentedDateHandler(id[0].rentedFrom,dateToString)});
-                      bundled.push(id[0].id)
-                    }else{
-                      if(orderData.notes)
-                      orderData.notes = `系統訊息：\r\n注意：隨附${_e.contains[i][ii]}器材已經無剩餘器材，在審核過程時有可能將器材更換或取消器材\r\n`+orderData.notes;
-                      else{
-                        orderData.notes = `系統訊息：\r\n注意：隨附${_e.contains[i][ii]}器材已經無剩餘器材，在審核過程時有可能將器材更換或取消器材\r\n`;
-   
-                      }
+                      bundled.push(id[0].id);
+                      break;
+                    }else if(iii == (id.length - 1)){
+                        warningContains = warningContains + 1;
+                        if(orderData.notes)
+                        orderData.notes = `系統訊息：\r\n注意：隨附${_e.contains[i][ii]}器材已經無剩餘器材，在審核過程時有可能將器材更換或取消器材\r\n`+orderData.notes;
+                        else{
+                          orderData.notes = `系統訊息：\r\n注意：隨附${_e.contains[i][ii]}器材已經無剩餘器材，在審核過程時有可能將器材更換或取消器材\r\n`;
+                        }
+                    }
                       // sails.log(orderData.notes);
-                      warningContains = warningContains + 1;
                     }
                     
                   }
@@ -177,10 +181,13 @@ module.exports = {
                     resolve();
                   }
                 }
+
               })
+                //ok end
             }
   
             await Equipt.updateOne({id: equipt}).set({rentedFrom: rentedDateHandler(_e.rentedFrom,dateToString)})
+            sails.log("(contains) Equipt Modified");
           }else{
             throw "can't modify the specified Equipt."
           }
@@ -192,9 +199,10 @@ module.exports = {
         if(index == (this.req.session.cart.items.length -1)){
           resolve();
         }
+
+      }
       })
 
-    }
     const _create = await Order.create(orderData).fetch();
     // sails.log("Order Created:"+_create);
     // All done.
