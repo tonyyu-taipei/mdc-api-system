@@ -34,6 +34,7 @@ module.exports.routes = {
     'GET /api/order/pending': 'order/find-pending',
     'GET /api/order/:id':'order/find-one',
     'PUT /api/order/:id': 'order/update',
+    'POST /api/order/occupied' : 'order/find-occupied',
     'DELETE /api/order/:id':'order/destroy',
     'GET /api/order/find-contact/:id':'order/find-contact',
     
