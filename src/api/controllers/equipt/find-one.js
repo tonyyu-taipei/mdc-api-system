@@ -52,6 +52,16 @@ module.exports = {
       if(!this.req.session.user?.admin)
       return exits.err(402);
     }
+    if(!_ef.active){
+      if(!this.req.session.user?.admin){
+        _ef.name = "已刪除";
+        _ef.description = "已被刪除，無法瀏覽";
+        _ef.photo = "notfound.png"
+      }
+      else{
+        _ef.name += "（已刪除）"
+      }
+    }
     let closedCat = undefined;
     if(this.req.session.dateRange && !inputs.edit)
     closedCat = await sails.helpers.specialEventArrayHelper(this.req.session.dateRange);

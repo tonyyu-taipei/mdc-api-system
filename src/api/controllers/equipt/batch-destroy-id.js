@@ -30,9 +30,9 @@ module.exports = {
       for(let i in inputs.id){
         try {
               await new Promise(async (resolve, reject)=>{
-              var _update = await Equipt.destroy({
+              var _update = await Equipt.update({
                 id:inputs.id[i]
-              }).fetch()
+              }).set({active: false}).fetch()
               if(_update.length){
                 resolve(_update);
                 if(i == inputs.id.length-1){

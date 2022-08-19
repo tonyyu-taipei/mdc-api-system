@@ -20,6 +20,7 @@ module.exports = {
     brand	: { type: 'number', required: true , columnType:'int2' },  // 廠牌
     contains	: { type: 'json', required: false  },  // 內附器材
     rentedFrom: { type: 'string', required: false , columnType:'text' },  // 從何時租到何時，各個日期都是JS 的new Date()
+    active: {type:'boolean',defaultsTo:true},
   },
 
 };
