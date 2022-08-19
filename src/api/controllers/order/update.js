@@ -188,9 +188,11 @@ module.exports = {
 
         }
       }else if(inputs.from && inputs.to){
-
+        if(Array.isArray(_fo.bundled))
         await rentedFromHandler("內附日期變更",_fo.bundled, _fo.bundled, [_fo.from, _fo.to], [_fo.from, _fo.to]);
-        await rentedFromHandler("借出日期變更",_fo.bundled, _fo.bundled, [_fo.from, _fo.to], [_fo.from, _fo.to]);
+
+        if(Array.isArray(_fo.contains))
+        await rentedFromHandler("借出日期變更",_fo.contains, _fo.contains, [_fo.from, _fo.to], [_fo.from, _fo.to]);
 
 
       }
