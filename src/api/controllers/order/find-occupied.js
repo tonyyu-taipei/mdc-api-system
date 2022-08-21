@@ -31,11 +31,9 @@ module.exports={
                 let data = _of[index];
                 if(Array.isArray(data.bundled) && data.bundled.includes(inputs.id)){
                     res.push(data);
-                    continue;
                 }
                 if(Array.isArray(data.contains) && data.contains.includes(inputs.id)){
                     res.push(data);
-                    continue;
                 }
                 if(index == (_of.length - 1)){
                     resolve();
