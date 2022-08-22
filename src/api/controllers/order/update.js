@@ -53,7 +53,7 @@ async function rentedFromHandler(mode, orgEquipt, newEquipt, origDate , newDate)
       
       let _equipt = await Equipt.findOne({id});
 
-      let _up = await Equipt.update(id).set({rentedFrom: rentedDateHandler(_equipt.rentedFrom, newDate.toString())}).fetch()
+      let _up = await Equipt.update({id}).set({rentedFrom: rentedDateHandler(_equipt.rentedFrom, newDate.toString())}).fetch()
 
       if(!_up){
         errorEquipt = errorEquipt + 1;
@@ -188,9 +188,11 @@ module.exports = {
 
         }
       }else if(inputs.from && inputs.to){
+        if(Array.isArray(_fo.bundled))
+        await rentedFromHandler("內附日期變更",_fo.bundled, _fo.bundled, [_fo.from, _fo.to], [inputs.from, inputs.to]);
 
-        await rentedFromHandler("內附日期變更",_fo.bundled, _fo.bundled, [_fo.from, _fo.to], [_fo.from, _fo.to]);
-        await rentedFromHandler("借出日期變更",_fo.bundled, _fo.bundled, [_fo.from, _fo.to], [_fo.from, _fo.to]);
+        if(Array.isArray(_fo.contains))
+        await rentedFromHandler("借出日期變更",_fo.contains, _fo.contains, [_fo.from, _fo.to], [inputs.from, inputs.to]);
 
 
       }

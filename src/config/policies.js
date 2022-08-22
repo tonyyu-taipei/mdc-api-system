@@ -32,6 +32,7 @@ module.exports.policies = {
 
 //check if user's admin.
 'user/find':'check-admin',
+"order/find-occupied":"check-admin",
 "order/find-all":"check-admin",
 "order/find-pending":"check-admin",
 'user/find-one':"check-admin",

@@ -46,10 +46,10 @@ module.exports = {
     let _del;
 
     if(inputs.id){ 
-      _del = await Equipt.destroy({ id: inputs.id}).fetch();
+      _del = await Equipt.update({ id: inputs.id}).set({active: false}).fetch();
     }
     else{
-      _del = await Equipt.destroy({ name: inputs.name}).fetch();
+      _del = await Equipt.update({ name: inputs.name}).set({active: false}).fetch();
     }
     return exits.success(_del);
 
