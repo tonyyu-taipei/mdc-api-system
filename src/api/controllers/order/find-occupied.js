@@ -5,7 +5,7 @@ module.exports={
     inputs:{
         from:{ type: 'string', required:true},
         to:{type:'string', required:true},
-        id:{type:'number', required:true}
+        id:{type:'number', required:true},
     },
     exits:{
         success:{
@@ -20,7 +20,7 @@ module.exports={
             from: inputs.from,
             to: inputs.to
         });
-        if(!_of){
+        if(!_of || _of.length == 0){
             return exits.err(502);
         }
 
