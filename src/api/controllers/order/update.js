@@ -121,7 +121,7 @@ module.exports = {
   inputs: {			
     id:{type: 'number', required:true}, // 訂單ID
     name: { type: 'string',  columnType:'varchar(10)' },  // 取件人名稱	
-    notes: { type: 'number',  columnType:'int2' },  // 備註		
+    notes: { type: 'string'  },  // 備註		
     phone: { type: 'string',  columnType:'text' },  // 聯絡電話	
     status: {type: 'number',  columnType:'int2'},  // 0 -訂單等待管理員確認中 
                                                                     // 1 -管理員已經正在聯絡中 
