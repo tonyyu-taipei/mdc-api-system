@@ -36,6 +36,7 @@ module.exports.routes = {
     'PUT /api/order/:id': 'order/update',
     'POST /api/order/occupied' : 'order/find-occupied',
     'DELETE /api/order/:id':'order/destroy',
+    'DELETE /api/order/cancel/:id':"order/cancel",
     'GET /api/order/find-contact/:id':'order/find-contact',
     
   // 器材系統 Done
