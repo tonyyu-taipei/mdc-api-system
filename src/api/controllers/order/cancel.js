@@ -1,3 +1,5 @@
+
+const rentedFromHandler = sails.helpers.rentedFromHelper;
 module.exports = {
 
 
@@ -45,6 +47,13 @@ module.exports = {
 
     switch(_od.status){
       case 0:
+        await rentedFromHandler;
+        if(Array.isArray(_od.bundled))
+        await rentedFromHandler("內附日期變更",_od.bundled, _od.bundled, [_od.from, _od.to], ["",""]);
+
+        if(Array.isArray(_od.contains))
+        await rentedFromHandler("借出日期變更",_od.contains, _od.contains, [_od.from, _od.to], ["", ""]);
+
         _ou = await Order.update({id: inputs.id}).set({status: 6}).fetch();
         break;
       case 1:
