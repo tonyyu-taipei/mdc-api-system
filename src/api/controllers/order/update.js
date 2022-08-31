@@ -29,6 +29,7 @@ module.exports = {
     price:{type:'number'},
     from:{ type:"string"},
     to:{type:"string"},
+    force:{type:"boolean"}
 
    },
                                                                   
@@ -46,6 +47,7 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
+    sails.log('order update requested')
     const isValid = require('date-fns/isValid');
     // 利用ID找尋相關資料
     const _fo = await Order.findOne({
@@ -54,6 +56,28 @@ module.exports = {
 
     if(!_fo){
       return exits.err(503)
+    }
+    if(inputs.force){
+        // 強制更新資料
+        const _uo = await Order.update({
+          id: inputs.id
+        }).set({
+          notes: inputs.notes,
+          phone: inputs.phone,
+          name: inputs.name,
+          status: inputs.status,
+          contains: inputs.contains,
+          bundled: inputs.bundled,
+          price: inputs.price,
+          from: isValid(new Date(inputs.from))?inputs.from:undefined,
+          to: isValid(new Date(inputs.to))?inputs.to:undefined,
+    
+
+        }).fetch();
+
+        return exits.success(_uo);
+
+      
     }
 
     try{
@@ -86,8 +110,8 @@ module.exports = {
         if(Array.isArray(_fo.contains))
         await rentedFromHandler("借出日期變更",_fo.contains, _fo.contains, [_fo.from, _fo.to], [inputs.from, inputs.to]);
 
-
-      }else if(inputs.status == 6 && _fo.status != 6){
+        //訂單完成或訂單取消時，更改RentedFrom
+      }else if((inputs.status == 6 && _fo.status != 6)||(inputs.status == 4 && _fo.status != 4)){
  
         if(Array.isArray(_fo.bundled))
         await rentedFromHandler("內附日期變更",_fo.bundled, _fo.bundled, [_fo.from, _fo.to], ["",""]);
@@ -96,6 +120,7 @@ module.exports = {
         await rentedFromHandler("借出日期變更",_fo.contains, _fo.contains, [_fo.from, _fo.to], ["", ""]);
 
       }
+      
     }catch(e){
 
       return exits.err({msgCH: e.raw})
