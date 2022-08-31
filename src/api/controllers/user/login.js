@@ -72,7 +72,8 @@ module.exports = {
       user: _u.user,
       name: _u.name,
       phone: _u.phone,
-      auth: genRandom
+      auth: genRandom,
+      permission: _u.permission
      };
 
 
