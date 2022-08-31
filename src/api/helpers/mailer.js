@@ -79,6 +79,9 @@ module.exports = {
 
     fn: async function(inputs, exits){
         let temp = fs.readFileSync(__dirname+ "/templates/mail.txt");
+        const _fsetting = await Settings.find();
+        const mail = _fsetting[0].email;
+
         let tempStr = await temp.toString();
         let topic = "";
         let content = "";
@@ -103,13 +106,13 @@ module.exports = {
 
             case 2: //訂單成功通知
                 topic = `訂單已接收`;
-                content = `${inputs.name}您好！<br>我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。<br><br>若有任何問題，請洽<br>info@mdcstudio.tw`;
-                contentTxt = `您好！ 我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。 若有任何問題，請洽：<br/>info@mdcstudio.tw`
+                content = `${inputs.name}您好！<br>我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。<br><br>若有任何問題，請洽<br>${mail}`;
+                contentTxt = `您好！ 我們已經收到您的訂單，管理員將盡快與您確認領取時間與報價。 若有任何問題，請洽：${mail}`
                 await sails.helpers.lineBot(`有一個來自${inputs.name}的器材借用需求，\n請前往https://rental.mdcstudio.tw/  來檢查核可訂單`);
                 break;
             case 3: //訂單取消通知
                 topic = `訂單已取消`;
-                content = `${inputs.name}您好！<br>您的訂單已取消。<br/>若有任何問題，請洽：<br/>info@mdcstudio.tw`
+                content = `${inputs.name}您好！<br>您的訂單已取消。<br/>若有任何問題，請洽：<br/>${mail}`
                 break;
             default:
             return exits.error("no email code specified.");
