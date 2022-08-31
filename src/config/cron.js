@@ -11,7 +11,7 @@ async function callJob(){
 
 module.exports.cron ={
     checkRented: {
-        schedule: '* * * * *',
+        schedule: '0 7 * * *',
         onTick: async ()=>{
             await callJob();
         },
