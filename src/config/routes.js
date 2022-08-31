@@ -26,6 +26,7 @@ module.exports.routes = {
     'GET /api/user/:id':'user/find-one',
     'DELETE /api/user/:id':'user/destroy',
     'PATCH /api/user/info':'user/update',
+    'PUT /api/user/admin/:id':'user/admin-update',
 
   // 訂單系統
     'POST /api/order':'order/create',
@@ -99,6 +100,10 @@ module.exports.routes = {
     'DELETE /api/special/:id':"special/destroy",
     'PUT /api/special/:id':'special/update',
 
+  //設定
+    'GET /api/settings':"settings/find",
+    "PUT /api/settings":"settings/update",
+    'POST /api/settings/default':"settings/create",
     //Swagger 
     'get /swagger.json': (_, res) => {
       const swaggerJson = require('../swagger/swagger.json')

@@ -77,7 +77,7 @@ module.exports={
             let _equipt = await Equipt.findOne({id});
 
             if(!_equipt)
-            return exits.error(inputs.mode+`錯誤：${id}號器材不存在，無法變更日期。`);
+            return exits.error(inputs.mode+`錯誤：\r\n${id} 號器材無法讀取，致無法變更或釋出日期。`);
 
             let rentedFromArr = _equipt.rentedFrom.split(',');
 
