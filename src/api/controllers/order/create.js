@@ -98,6 +98,10 @@ module.exports = {
     let from = new Date(this.req.session.dateRange[0]);
     let to = new Date(this.req.session.dateRange[1]);
 
+    if(this.req.session.user?.permission == 2){
+      return exits.err(110);
+    }
+
     if(this.req.session.coupon !== void 0)
     price = await pricecalc(this.req.session.cart.items, Math.abs(differenceInDays(from, to)),this.req.session.cart.coupon)  //calculate the price using pricecal helpers. Sending the differences in date to the helpers.
     else
