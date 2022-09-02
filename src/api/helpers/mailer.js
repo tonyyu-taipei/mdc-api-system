@@ -91,16 +91,16 @@ module.exports = {
                 topic = `帳號確認信`;
 
 
-                content = `${inputs.name}您好！<br>歡迎您加入MDC STUDIO的會員！<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來開通您的帳號以享有所有服務<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://api.mdcstudio.tw/api/user/auth/${inputs.auth}</a><br><br>MDC STUDIO再次感謝您的加入，若有任何問題，歡迎聯絡我們，謝謝！`;
+                content = `${inputs.name}您好！<br>歡迎您加入MDC STUDIO的會員！<br><a href="https://rental.mdcstudio.tw/#/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來開通您的帳號以享有所有服務<br><a href="https://rental.mdcstudio.tw/#/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://rental.mdcstudio.tw/#/auth/${inputs.auth}</a><br><br>MDC STUDIO再次感謝您的加入，若有任何問題，歡迎聯絡我們，謝謝！`;
 
 
-                contentTxt = `${inputs.name}您好！歡迎您加入MDC STUDIO的會員！請前往連結來開通您的帳號以享有所有服務：https://api.mdcstudio.tw/api/user/auth/${inputs.auth} MDC STUDIO再次感謝您的加入，若有任何問題，歡迎聯絡我們，謝謝！`;
+                contentTxt = `${inputs.name}您好！歡迎您加入MDC STUDIO的會員！請前往連結來開通您的帳號以享有所有服務：https://rental.mdcstudio.tw/#/auth/${inputs.auth} MDC STUDIO再次感謝您的加入，若有任何問題，歡迎聯絡我們，謝謝！`;
                 break;
             case 1: //使用者信箱變更確認信
                 topic = `信箱變更確認`;
 
-                content = `${inputs.name}您好！<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來變更您的電郵帳號<br><a href="https://api.mdcstudio.tw/api/user/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://api.mdcstudio.tw/api/user/auth/${inputs.auth}</a><br><br>注意：連結一但點擊，舊有信箱將會失效，若有任何問題，歡迎聯絡我們，謝謝！`;
-                contentTxt = `${inputs.name}您好！請點擊此以開通您的MDC帳號：https://api.mdcstudio.tw/api/user/auth/${inputs.auth} 謝謝。 注意：連結一但點擊，舊有信箱將會失效，若有任何問題，歡迎聯絡我們，謝謝！`;
+                content = `${inputs.name}您好！<br><br/>:您的驗證碼為${inputs.auth}，<br/><a href="https://rental.mdcstudio.tw/#/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB">請點擊此或下列連結</a>來變更您的電郵帳號<br><a href="https://rental.mdcstudio.tw/#/auth/${inputs.auth}" style="text-decoration: none;color:#55BABB;">https://rental.mdcstudio.tw/#/auth/${inputs.auth}</a><br><br>注意：連結一但點擊，舊有信箱將會失效，若有任何問題，歡迎聯絡我們，謝謝！`;
+                contentTxt = `${inputs.name}您好！請點擊此以開通您的MDC帳號：https://rental.mdcstudio.tw/#/auth/${inputs.auth} 驗證碼為${inputs.auth}。 注意：連結一但點擊，舊有信箱將會失效，若有任何問題，歡迎聯絡我們，謝謝！`;
 
                 break;
 
