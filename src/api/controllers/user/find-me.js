@@ -39,7 +39,8 @@ module.exports = {
           user: _u.user,
           name: _u.name,
           phone: _u.phone,
-          auth: inputs.auth
+          auth: inputs.auth,
+          verified: _u.verified
         }
       
         if(_u.permission == 1){
