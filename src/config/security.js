@@ -51,7 +51,7 @@ module.exports.security = {
   
   
   ],
-    allowRequestHeaders:"content-type,auth",
+    allowRequestHeaders:"content-type",
     allowCredentials: true,
   },
 
