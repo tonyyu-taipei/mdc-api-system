@@ -78,7 +78,7 @@ fn: async function(inputs, outputs){
 
         sails.log(serverLog);
         sails.log("line Output:", message);
-        if(!dated || !doned || !error || !toTake || !toDated){
+        if(!dated || !doned || !toTake || !toDated){
             await line(message)
         }
 

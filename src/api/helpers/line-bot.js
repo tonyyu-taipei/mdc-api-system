@@ -18,12 +18,12 @@ module.exports={
         channelAccessToken:process.env.LINE_CHTOKEN
     })
 //Won't broadcast to Line during dev.
-    if(process.env.NODE_ENV =="production"){
+    // if(process.env.NODE_ENV =="production"){
         let res = await bot.broadcast(`【器材系統訊息推播】\n${inputs.message}`);
         if(!res){
             return exits.error()
         }
-    }  
+    // }  
     return exits.success();
     }
 }
