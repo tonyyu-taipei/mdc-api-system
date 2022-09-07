@@ -35,7 +35,7 @@ module.exports = {
       // user: exits.user,
       // password: exits.password
       where: {user: inputs.user},
-      select: ['user', 'password','name','permission','phone','id']
+      select: ['user', 'password','name','permission','phone','id','verified']
     }).decrypt();
     let genRandom = random;
     if (!_u) {
@@ -66,13 +66,14 @@ module.exports = {
     }
 
 
-
+    sails.log(_u.verified)
     this.req.session.user = {
       id:_u.id,
       user: _u.user,
       name: _u.name,
       phone: _u.phone,
-      auth: genRandom
+      verified:_u.verified,
+      permission: _u.permission
      };
 
 

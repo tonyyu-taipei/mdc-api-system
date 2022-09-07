@@ -31,10 +31,8 @@ module.exports = {
     if(!_ud){
       return exits.err(104);
     } 
+    await User.destroy({id: inputs.id});
     
-    await User.update({id: inputs.id}).set({
-      active: false
-    });
 
     return exits.success({});
 

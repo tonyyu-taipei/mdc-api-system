@@ -83,6 +83,8 @@ module.exports={
         let _chkExists = await User.findOne({//檢查email是否已經存在
             user: inputs.user
         })
+
+        
         
         let _chkChangeExists = await User.findOne({
             changeMail: inputs.user

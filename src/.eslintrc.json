@@ -24,6 +24,7 @@
         "Coupon":true,
         "Image":true,
         "...":true,
+        "Settings":true,
         "SpecialEvent":true
 
     }
