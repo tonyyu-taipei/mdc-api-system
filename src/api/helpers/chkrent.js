@@ -68,9 +68,35 @@ fn: async function(inputs, outputs){
             }
         })
         if(settings.autodone){
-        message += `有${dated?dated:0}個自動取消\n有${doned?doned:0}個訂單自動歸還\n\n今日有${toTake?toTake:0}個訂單待領取\n\n有${toDated?toDated:0}個訂單已逾時歸還。\n\n詳情請上管理系統`
+            if(dated){
+                message+=`有${dated?dated:0}個自動取消\n`
+            }
+            if(doned){
+                message+=`有${doned?doned:0}個訂單自動歸還\n\n`
+            }
+            if(toTake){
+               message +=`今日有${toTake?toTake:0}個訂單待領取\n\n` 
+            }
+            if(toDated){
+                message+=`有${toDated?toDated:0}個訂單已逾時歸還。`
+            }
+
+            message += `\n\n詳情請上管理系統。`
         } else{
-            message += `有${dated?dated:0}個自動取消\n有${doned?doned:0}個訂單自動改為逾時\n\n今日有${toTake?toTake:0}個訂單待領取\n\n有${toDated?toDated:0}個訂單已逾時歸還\n\n詳情請上管理系統。`
+            if(dated){
+                message+=`有${dated?dated:0}個自動取消\n\n`
+            }
+            if(doned){
+                message+=`有${doned?doned:0}個訂單自動改為逾時\n\n`
+            }
+            if(toTake){
+               message +=`今日有${toTake?toTake:0}個訂單待領取\n\n` 
+            }
+            if(toDated){
+                message+=`有${toDated?toDated:0}個訂單已逾時歸還。`
+            }
+
+            message += `\n\n詳情請上管理系統。`
         }
 
         if(error)
