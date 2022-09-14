@@ -25,7 +25,7 @@ module.exports.policies = {
 'order/update':"check-login",
 'order/destroy':"check-login",
 'user/update':"check-login",
-
+'user/find-me':"check-login",
 
 //check if cart and date-range exists in session
 'order/create':'order-policies',
