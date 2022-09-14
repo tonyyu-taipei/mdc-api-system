@@ -35,6 +35,7 @@ module.exports = {
 
   fn: async function (inputs,exits) {
 
+   inputs.user = inputs.user.toLowerCase();
    if (!emailRule.test(inputs.user)){
      return exits.err(108);
    }

@@ -47,6 +47,9 @@ module.exports={
 
     fn: async function(inputs, exits){
 
+        if(inputs.user){
+            inputs.user = inputs.user.toLowerCase();
+        }
         let _chkPass = await User.findOne({
             where: {
                 id: this.req.session.user.id
