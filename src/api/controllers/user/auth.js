@@ -30,7 +30,8 @@ module.exports={
                 where: {auth: inputs.auth}
             }).set({
                 user: _findAuth.changeMail,
-                changeMail: undefined
+                changeMail:"",
+                auth:"" 
             })
             return exits.success("您的帳戶已經確認，您可以關掉此網頁了，謝謝！")
 
